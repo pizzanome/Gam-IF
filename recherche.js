@@ -1,21 +1,24 @@
 function rechercheParNom(){
     var nom = document.getElementById("recherche").value;
-    var requete = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n' +
-        'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n' +
-        'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n' +
-        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n' +
-        'PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n' +
-        'PREFIX dc: <http://purl.org/dc/elements/1.1/>\n' +
-        'PREFIX : <http://dbpedia.org/resource/>\n' +
-        'PREFIX dbpedia2: <http://dbpedia.org/property/>\n' +
-        'PREFIX dbpedia: <http://dbpedia.org/>\n' +
-        'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n' +
-        'PREFIX dbo: <https://dbpedia.org/ontology/>\n' +
+    var requete = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
+        'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>' +
+        'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' +
+        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' +
+        'PREFIX foaf: <http://xmlns.com/foaf/0.1/>' +
+        'PREFIX dc: <http://purl.org/dc/elements/1.1/>' +
+        'PREFIX : <http://dbpedia.org/resource/>' +
+        'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
+        'PREFIX dbpedia: <http://dbpedia.org/>' +
+        'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
+        'PREFIX dbo: <https://dbpedia.org/ontology/>' +
         '\n' +
-        'SELECT * WHERE {\n' +
+        'SELECT * WHERE {' +
         '?Jv a dbo:VideoGames; a dbo:Software; foaf:name ?name.' +
         'FILTER(regex(?name,".*'+nom+'.*"))'+
         '}';
+
+    var url_base = "http://dbpedia.org/sparql";
+    var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -32,6 +35,8 @@ function rechercheParNom(){
 function afficherResultats(data){
     // Tableau pour mémoriser l'ordre des variables ; sans doute pas nécessaire
     // pour vos applications, c'est juste pour la démo sous forme de tableau
+    console.log(data);
+
     var index = [];
 
     var contenuTableau = "<tr>";
