@@ -10,21 +10,22 @@ function rechercheParNom(){
         'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
-        'PREFIX dbo: <https://dbpedia.org/ontology/>' +
         '\n' +
         'SELECT * WHERE {' +
-        '?Jv a dbo:VideoGames; a dbo:Software; foaf:name ?name.' +
+        '?Jv a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisheur ?publisher; dbo:abstract ?description.' +
         'FILTER(regex(?name,".*'+nom+'.*"))'+
         '}';
 
     var url_base = "http://dbpedia.org/sparql";
     var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
+    console.log(url);
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
+        console.log(this.status);
         if (this.readyState == 4 && this.status == 200) {
             var results = JSON.parse(this.responseText);
-            console.log(results)
+            console.log(results);
             afficherResultats(results);
         }
     };
@@ -35,8 +36,6 @@ function rechercheParNom(){
 function afficherResultats(data){
     // Tableau pour mémoriser l'ordre des variables ; sans doute pas nécessaire
     // pour vos applications, c'est juste pour la démo sous forme de tableau
-    console.log(data);
-
     var index = [];
 
     var contenuTableau = "<tr>";
