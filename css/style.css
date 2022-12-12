@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .searchbar{
+    width: auto;
     margin-top: 30px;
     height: 60px;
     background-color: #353b48;
@@ -35,17 +36,13 @@ h1, h2, h3, h4, h5, h6{
     border: 0;
     outline: 0;
     background: none;
-    width: 50px;
+    width: 500px;
     caret-color:transparent;
     line-height: 40px;
-    transition: width 0.4s linear;
 }
 
 .searchbar:hover > .search_input{
-    padding: 0 10px;
-    width: 450px;
     caret-color: #FC4754;
-    transition: width 0.4s linear;
 }
 
 .searchbar:hover > .search_icon{
