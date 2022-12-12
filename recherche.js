@@ -10,9 +10,8 @@ function rechercheParNom(){
         'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
-        '\n' +
         'SELECT * WHERE {' +
-        '?Jv a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisheur ?publisher; dbo:abstract ?description.' +
+        '?Jv a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisher ?publisher; dbo:abstract ?description.' +
         'FILTER(regex(?name,".*'+nom+'.*"))'+
         '}';
 
@@ -30,7 +29,7 @@ function rechercheParNom(){
         }
     };
     xmlhttp.open("GET", url, true);
-    xmlhttp.send();
+    xmlhttp.send(null);
 }
 
 function afficherResultats(data){
