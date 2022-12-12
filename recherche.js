@@ -11,7 +11,7 @@ function rechercheParNom(){
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
         'SELECT * WHERE {' +
-        '?Jv a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisher ?publisher; dbo:abstract ?description.' +
+        '?jeu a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?date; dbp:series ?serie ;rdfs:comment ?description.' +
         'FILTER(regex(?name,".*'+nom+'.*") && langMatches(lang(?description),"FR"))'+
         '}';
 
@@ -33,45 +33,18 @@ function rechercheParNom(){
 }
 
 function afficherResultats(data){
-    // Tableau pour mémoriser l'ordre des variables ; sans doute pas nécessaire
-    // pour vos applications, c'est juste pour la démo sous forme de tableau
-    var index = [];
 
-    var contenuTableau = "<tr>";
+    var ressource,nom, date, serie, description;
 
-    data.head.vars.forEach((v, i) => {
-        contenuTableau += "<th>" + v + "</th>";
-        index.push(v);
-    });
+    var div = document.getElementById("resultatsRecherche").innerHTML
 
     data.results.bindings.forEach(r => {
-        contenuTableau += "<tr>";
-
-        index.forEach(v => {
-
-            if (r[v])
-            {
-                if (r[v].type === "uri")
-                {
-                    contenuTableau += "<td><a href='" + r[v].value + "' target='_blank'>" + r[v].value + "</a></td>";
-                }
-                else {
-                    contenuTableau += "<td>" + r[v].value + "</td>";
-                }
-            }
-            else
-            {
-                contenuTableau += "<td></td>";
-            }
-
-        });
-
-
-        contenuTableau += "</tr>";
+        ressource = r.jeu.value;
+        nom = r.name.value;
+        date = r.date.value;
+        description = r.description.value;
+        serie = r.serie.value;
     });
-
-
-    contenuTableau += "</tr>";
 
     document.getElementById("resultats").innerHTML = contenuTableau;
 
