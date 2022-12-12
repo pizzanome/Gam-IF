@@ -10,7 +10,7 @@ function rechercheParNom(){
         'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
-        'SELECT * WHERE {' +
+        'SELECT ?jeu ?name ?date ?serie ?description (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?dates) WHERE {' +
         '?jeu a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?date; dbp:series ?serie ;rdfs:comment ?description.' +
         'FILTER(regex(?name,".*'+nom+'.*") && langMatches(lang(?description),"FR"))'+
         '}';
@@ -43,10 +43,10 @@ function afficherResultats(data){
     data.results.bindings.forEach(r => {
         ressource = r.jeu.value;
         nom = r.name.value;
-        date = r.date.value;
+        date = r.dates.value;
         description = r.description.value;
         serie = r.serie.value;
-        lien = "jeu?=ressource="+ressource;
+        lien = "/jeu.html?ressource="+ressource;
 
         div.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 18rem;">
             <img src="img/assassin.png" class="card-img-top" alt="...">
@@ -54,9 +54,9 @@ function afficherResultats(data){
                     <h5 class="card-title">${nom}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">${date}</h6>
-                    <p class="card-text">${description}</p>
+                    <p class="card-text" style="color: #353b48">${description}</p>
                     <a href=${lien} class="btn btn-primary">Voir détails</a>
-                </div>
+                </div> 
         </div>`;
     });
 }
