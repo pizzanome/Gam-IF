@@ -5,7 +5,8 @@ body,html{
     width: 100%;
     margin: 0;
     padding: 0;
-    background: #10061E !important;
+    /*background: #10061E !important;*/
+    background: url("../img/background.jpg");
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -60,37 +61,4 @@ h1, h2, h3, h4, h5, h6{
     border-radius: 50%;
     color:white;
     text-decoration:none;
-}
-
-.ellipse1{
-    /*en haut à gauche*/
-    position: absolute;
-    width: 262px;
-    height: 262px;
-    left: -188px;
-    top: 41px;
-    background: #FC4754;
-    filter: blur(100px);
-}
-
-.ellipse2{
-    /*milieu droit*/
-    position: absolute;
-    width: 262px;
-    height: 262px;
-    left: 1000px;
-    top: 151px;
-    background: #FC4754;
-    filter: blur(100px);
-}
-
-.ellipse3{
-    /*en bas */
-    position: absolute;
-    width: 351px;
-    height: 271px;
-    left: 361px;
-    top: 400px;
-    background: #FC4754;
-    filter: blur(100px);
 }
