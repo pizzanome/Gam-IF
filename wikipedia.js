@@ -17,9 +17,9 @@ function getImage(){
             fetch(image_url)
                 .then(response => response.json())
                 .then(data2 => {
-                    var pages2 = data2.query.pages;
-                    var page2 = pages2[Object.keys(pages2)[0]];
-                    var imageinfo = page2.imageinfo;
+                    const pages2 = data2.query.pages;
+                    const page2 = pages2[Object.keys(pages2)[0]];
+                    const imageinfo = page2.imageinfo;
                     image_ref = imageinfo[0].url;
                     console.log(image_ref);
                     document.getElementById("searchimage").src = image_ref;
