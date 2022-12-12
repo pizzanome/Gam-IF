@@ -27,6 +27,12 @@ p{
     text-justify: auto;
 }
 
+
+.button-filtre{
+    background: #F87F7F;
+    /* couleur texte CA8D8D*/
+}
+
 .titre{
     margin-top: 70px;
 }
