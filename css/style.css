@@ -9,10 +9,16 @@ body,html{
     background: url("../img/background.jpg");
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4{
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: #fff;
+}
+
+h5{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: black;
 }
 
 .titre{
