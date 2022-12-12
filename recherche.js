@@ -12,7 +12,7 @@ function rechercheParNom(){
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
         'SELECT * WHERE {' +
         '?Jv a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisher ?publisher; dbo:abstract ?description.' +
-        'FILTER(regex(?name,".*'+nom+'.*"))'+
+        'FILTER(regex(?name,".*'+nom+'.*") && langMatches(lang(?description),"FR"))'+
         '}';
 
     var url_base = "http://dbpedia.org/sparql";
