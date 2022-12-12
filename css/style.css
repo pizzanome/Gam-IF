@@ -21,6 +21,12 @@ h5{
     color: black;
 }
 
+p{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-justify: auto;
+}
+
 
 .button-filtre{
     background: #F87F7F;
