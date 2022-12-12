@@ -36,7 +36,9 @@ function afficherResultats(data){
 
     var ressource,nom, date, serie, description;
 
-    var div = document.getElementById("resultatsRecherche").innerHTML
+    var div = document.getElementById("contenaireResultat");
+
+    div.innerHTML = "";
 
     data.results.bindings.forEach(r => {
         ressource = r.jeu.value;
@@ -44,8 +46,17 @@ function afficherResultats(data){
         date = r.date.value;
         description = r.description.value;
         serie = r.serie.value;
+        lien = "jeu?=ressource="+ressource;
+
+        div.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 18rem;">
+            <img src="img/assassin.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${nom}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">${date}</h6>
+                    <p class="card-text">${description}</p>
+                    <a href=${lien} class="btn btn-primary">Voir détails</a>
+                </div>
+        </div>`;
     });
-
-    document.getElementById("resultats").innerHTML = contenuTableau;
-
 }

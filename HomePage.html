@@ -34,7 +34,7 @@
     <div class="container h-50">
         <div class="d-flex justify-content-center h-50">
             <div class="searchbar row">
-                <input class="search_input col-auto" type="search" name="" placeholder="Cherche un jeu, un studio, une licence, ...">
+                <input id="recherche" class="search_input col-auto" type="search" name="" placeholder="Cherche un jeu, un studio, une licence, ...">
                 <!--<a href="#" class="search_icon"><i class="fas fa-search"></i></a> -->
                 <button id="bouton-recherche" class="btn btn-default search_icon" type="submit" onclick="rechercheParNom()"><i class="fas fa-search"></i></button>
             </div>
@@ -49,57 +49,14 @@
         </div>
 
         <div class="container">
-            <div class="row">
-                <div class="card col-4 mx-auto my-3" style="width: 18rem;">
-                    <img src="img/assassin.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Assassin’s Creed VALHALLA</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Assassin’s Creed</h6>
-                        <p class="card-text">Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.</p>
-                        <a href="#" class="btn btn-primary">Voir détails</a>
-                    </div>
-                </div>
-                <div class="card col-4 mx-auto my-3" style="width: 18rem;">
-                    <img src="img/assassin.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Assassin’s Creed VALHALLA</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Assassin’s Creed</h6>
-                        <p class="card-text">Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.</p>
-                        <a href="#" class="btn btn-primary">Voir détails</a>
-                    </div>
-                </div>
-                <div class="card col-4 mx-auto my-3" style="width: 18rem;">
-                    <img src="img/assassin.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Assassin’s Creed VALHALLA</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Assassin’s Creed</h6>
-                        <p class="card-text">Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.</p>
-                        <a href="#" class="btn btn-primary">Voir détails</a>
-                    </div>
-                </div>
-                <div class="card col-4 mx-auto my-3" style="width: 18rem;">
-                    <img src="img/assassin.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Assassin’s Creed VALHALLA</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Assassin’s Creed</h6>
-                        <p class="card-text">Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.</p>
-                        <a href="#" class="btn btn-primary">Voir détails</a>
-                    </div>
-                </div>
-                <div class="card col-4 mx-auto my-3" style="width: 18rem;">
-                    <img src="img/assassin.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Assassin’s Creed VALHALLA</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Assassin’s Creed</h6>
-                        <p class="card-text">Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.</p>
-                        <a href="#" class="btn btn-primary">Voir détails</a>
-                    </div>
-                </div>
+            <div id="contenaireResultat" class="row">
             </div>
         </div>
     </div>
 
 </div>
 <!-- fin header titre -->
+<script src="recherche.js"></script>
+
 </body>
 </html>
