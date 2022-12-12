@@ -12,8 +12,8 @@ function recupererDonnees(){
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
         'SELECT * WHERE {' +
-         ressource + 'foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisher ?publisher; dbo:abstract ?description.' +
-        'FILTER(regex(?name,".*'+nom+'.*") && langMatches(lang(?description),"FR"))'+
+         ressource + ' foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisher ?publisher; dbo:abstract ?description.' +
+        'FILTER(langMatches(lang(?description),"FR"))'+
         '}';
 
     var url_base = "http://dbpedia.org/sparql";
@@ -33,6 +33,6 @@ function recupererDonnees(){
     xmlhttp.send(null);
 }
 
-function remplirDonnes(){
-
+function remplirDonnes(data){
+    var developpeur = null;
 }
