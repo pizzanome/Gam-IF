@@ -83,7 +83,7 @@ function autoComplete(value) {
                 const div = document.createElement("div");
 
                 //div.innerHTML = `<a href="/jeu.html?ressource=${result.game.value}">${result.name.value}</a>`;
-                div.innerHTML += `<a href="/jeu.html?ressource=${result.game.value}" class="list-group-item list-group-item-action">${result.name.value}</a>`;
+                div.innerHTML += `<a href="jeu.html?ressource=${result.game.value}" class="list-group-item list-group-item-action">${result.name.value}</a>`;
                 document.getElementById("autocomplete").appendChild(div);
             });
         });
