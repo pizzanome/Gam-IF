@@ -51,6 +51,10 @@ input[type=checkbox]:checked + label{
     margin-top: 70px;
 }
 
+.titreJeu{
+    margin-top: 30px;
+}
+
 .gameif {
     margin-top: 80px;
 }

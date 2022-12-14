@@ -1,4 +1,5 @@
 function rechercheParNom(){
+    document.getElementById("autocomplete").style.display = "none";
     var nom = document.getElementById("recherche").value;
     var requete = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
         'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>' +
