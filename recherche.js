@@ -33,7 +33,7 @@ function afficherResultats(data) {
         const date = r.dates.value;
         let description = r.description.value;
         const serie = r.serie.value;
-        const lien = `/jeu.html?ressource=${ressource}`;
+        const lien = `jeu.html?ressource=${ressource}`;
 
         //si la description est trop longue, on la coupe
         if(description.length > 250){
