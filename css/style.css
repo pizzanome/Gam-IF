@@ -7,6 +7,7 @@ body, html {
     padding: 0;
     /*background: #10061E !important;*/
     background: url("../img/background.jpg");
+    background-size: cover;
 }
 
 h1, h2, h3, h4 {
@@ -97,10 +98,6 @@ input[type=checkbox]:checked + label{
 .containerCardResult{
     /* la carte a une hauteur automatique */
     margin-top: 30px;
-}
-
-.card-columns {
-    display: inline-block;
 }
 
 .autocomplete-items {
