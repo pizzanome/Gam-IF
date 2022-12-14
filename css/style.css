@@ -116,3 +116,7 @@ input[type=checkbox]:checked + label{
     width: 25rem;
     position: absolute;
 }
+
+.imageJeu{
+    background-color: rgb(300, 300, 300);
+}
