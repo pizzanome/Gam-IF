@@ -110,3 +110,9 @@ input[type=checkbox]:checked + label{
     left: 0;
     right: 0;
 }
+
+.listAuto{
+    margin-top: 50px;
+    width: 25rem;
+    position: absolute;
+}
