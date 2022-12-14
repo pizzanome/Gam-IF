@@ -1,5 +1,5 @@
 function getImage(){
-    const search = document.getElementById("searchbar").value;
+    const search = document.getElementById("recherche").value;
     const url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles="+search+"&prop=pageimages&format=json";
     let image_name;
     let image_url;
