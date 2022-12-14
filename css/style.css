@@ -28,7 +28,7 @@ p {
 }
 
 
-.button-filtre,.button-filtre:hover  {
+input[type=checkbox]:checked + label{
     background: #F87F7F;
     color: #ffff;
     /* couleur texte CA8D8D*/
@@ -37,7 +37,7 @@ p {
     margin-right: auto;
 }
 
-input[type=checkbox]:checked + label{
+.button-filtre,.button-filtre:hover{
     background: transparent;
     color: #F87F7F;
     border-color: #F87F7F;
