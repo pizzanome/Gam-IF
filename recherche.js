@@ -47,7 +47,7 @@ function afficherResultats(data) {
                     <h5 class="card-title">${nom}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">${date}</h6>
-                    <p class="card-text" style="color: #353b48">${description}</p>
+                    <p class="card-text descriptionCard" style="color: #353b48">${description}</p>
                     <a href=${lien} class="btn btn-primary">Voir détails</a>
                 </div>
         </div>`;

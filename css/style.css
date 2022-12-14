@@ -120,3 +120,14 @@ input[type=checkbox]:checked + label{
     width: 25rem;
     position: absolute;
 }
+
+.descriptionCard{
+    /*justifie le texte*/
+    text-align: justify;
+}
+
+.descriptionJeu{
+    /*justifie le texte*/
+    text-align: justify;
+    margin-top: 40px;
+}
