@@ -35,4 +35,12 @@ function recupererDonnees(){
 
 function remplirDonnees(data){
     var developpeur = null;
+    window.getElementById("jeu-nom").innerHTML = data.results.bindings[0].name.value;
+    window.getElementById("jeu-genre").innerHTML = data.results.bindings[0].genre.value;
+    window.getElementById("jeu-date").innerHTML = data.results.bindings[0].date.value;
+    window.getElementById("jeu-developpeur").innerHTML = data.results.bindings[0].dev.value;
+    window.getElementById("jeu-directeur").innerHTML = data.results.bindings[0].directeur.value;
+    window.getElementById("jeu-editeur").innerHTML = data.results.bindings[0].publisher.value;
+    window.getElementById("jeu-description").innerHTML = data.results.bindings[0].description.value;
+    //window.getElementById("jeu-plateforme").innerHTML = data.results.bindings[0].description.;
 }
