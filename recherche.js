@@ -75,7 +75,7 @@ function autoComplete(value) {
             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
             SELECT ?game ?name ?description WHERE {
                 ?game a dbo:VideoGame; a dbo:Software; rdfs:comment ?description; foaf:name ?name.FILTER(regex(?name,"^${value}") && langMatches(lang(?description),"FR"))
-            }
+            } LIMIT 5
     `;
 
     executeSparqlRequest(request)
