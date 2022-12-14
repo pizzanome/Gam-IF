@@ -28,11 +28,16 @@ function afficherResultats(data) {
         const ressource = r.jeu.value;
         const nom = r.name.value;
         const date = r.dates.value;
-        const description = r.description.value;
+        let description = r.description.value;
         const serie = r.serie.value;
         const lien = `/jeu.html?ressource=${ressource}`;
 
-        div.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 18rem;">
+        //si la description est trop longue, on la coupe
+        if(description.length > 250){
+            description = description.substring(0,250)+"...";
+        }
+
+        div.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 21rem;">
             <img src="img/assassin.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${nom}</h5>
@@ -40,7 +45,7 @@ function afficherResultats(data) {
                     <h6 class="card-subtitle mb-2 text-muted">${date}</h6>
                     <p class="card-text" style="color: #353b48">${description}</p>
                     <a href=${lien} class="btn btn-primary">Voir détails</a>
-                </div> 
+                </div>
         </div>`;
     });
 }

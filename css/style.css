@@ -85,6 +85,15 @@ p {
     text-decoration: none;
 }
 
+.containerCardResult{
+    /* la carte a une hauteur automatique */
+    margin-top: 30px;
+}
+
+.card-columns {
+    display: inline-block;
+}
+
 .autocomplete-items {
     position: absolute;
     border: 1px solid #d4d4d4;
