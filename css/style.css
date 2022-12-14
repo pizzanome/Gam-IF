@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body,html{
+body, html {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -9,43 +9,53 @@ body,html{
     background: url("../img/background.jpg");
 }
 
-h1, h2, h3, h4{
+h1, h2, h3, h4 {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: #fff;
 }
 
-h5{
+h5 {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: black;
 }
 
-p{
+p {
     font-family: 'Poppins', sans-serif;
     color: white;
     text-shadow: 2px 2px 4px #000000;
 }
 
 
-.button-filtre{
+.button-filtre,.button-filtre:hover  {
     background: #F87F7F;
+    color: #ffff;
     /* couleur texte CA8D8D*/
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    display: block;
 }
 
-.titre{
+input[type=checkbox]:checked + label{
+    background: transparent;
+    color: #F87F7F;
+    border-color: #F87F7F;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.titre {
     margin-top: 70px;
 }
 
-.gameif{
+.gameif {
     margin-top: 80px;
 }
 
-.searchbar{
+.searchbar {
     width: auto;
     margin-top: 30px;
     height: 60px;
@@ -54,26 +64,26 @@ p{
     padding: 10px;
 }
 
-.search_input{
+.search_input {
     color: white;
     border: 0;
     outline: 0;
     background: none;
     width: 500px;
-    caret-color:transparent;
+    caret-color: transparent;
     line-height: 40px;
 }
 
-.searchbar:hover > .search_input{
+.searchbar:hover > .search_input {
     caret-color: #FC4754;
 }
 
-.searchbar:hover > .search_icon{
+.searchbar:hover > .search_icon {
     background: white;
     color: #FC4754;
 }
 
-.search_icon{
+.search_icon {
     height: 40px;
     width: 40px;
     float: right;
@@ -81,6 +91,26 @@ p{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    color:white;
-    text-decoration:none;
+    color: white;
+    text-decoration: none;
+}
+
+.containerCardResult{
+    /* la carte a une hauteur automatique */
+    margin-top: 30px;
+}
+
+.card-columns {
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
 }

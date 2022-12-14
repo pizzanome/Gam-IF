@@ -1,4 +1,4 @@
-function recupererDonnees(){
+function recupererDonneesDevelopper(){
 
     var ressource = document.getElementById("recherche").value;
     var requete = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
@@ -11,9 +11,11 @@ function recupererDonnees(){
         'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
-        'SELECT * WHERE {' +
-         '<'+ ressource + '>' + 'dbo:tradingName ?name; dbo:foundedBy ?fondateurs; dbo:foundingDate ?date; dbo:locationCity ?localisation; dbp:numEmployees ?effectif; dbp:numEmployeesYear ?anneeEffectif; dbo:revenue ?revenue; dbo:revenueYear ?anneeRevenue; dbo:abstract ?description.' +
-        'FILTER(langMatches(lang(?description),"FR"))'+
+        'SELECT ' +
+        '?name ?fondateurs ?date (GROUP_CONCAT(DISTINCT ?localisation; SEPARATOR=";") AS ?localisations) ?effectif ?anneeEffectif ?revenue ?anneeRevenue ?description' +
+        + ' WHERE {' +
+         '<'+ ressource + '>' + 'rdfs:label ?name; dbo:foundedBy ?fondateurs; dbo:foundingDate ?date; dbo:locationCity ?localisation; dbp:numEmployees ?effectif; dbp:numEmployeesYear ?anneeEffectif; dbo:revenue ?revenue; dbo:revenueYear ?anneeRevenue; dbo:abstract ?description.' +
+        'FILTER(langMatches(lang(?description),"FR") && regex(datatype(?revenue),"http://dbpedia.org/datatype/usDollar"))'+
         '} GROUP BY ?date';
 
     var url_base = "http://dbpedia.org/sparql";
