@@ -70,7 +70,7 @@ function autoComplete(value) {
             PREFIX dbpedia: <http://dbpedia.org/>
             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
             SELECT ?game ?name ?description WHERE {
-                ?game a dbo:VideoGame; a dbo:Software; foaf:name ?name.FILTER(regex(?name,"${value}") && langMatches(lang(?description),"FR"))
+                ?game a dbo:VideoGame; a dbo:Software; rdfs:comment ?description; foaf:name ?name.FILTER(regex(?name,"^${value}") && langMatches(lang(?description),"FR"))
             }
     `;
 
@@ -79,7 +79,7 @@ function autoComplete(value) {
             data.results.bindings.forEach(result => {
                 const div = document.createElement("div");
 
-                div.innerHTML = `<a href="/jeu.html?ressource=${r.game.value}">${result.name.value}</a>`;
+                div.innerHTML = `<a href="/jeu.html?ressource=${result.game.value}">${result.name.value}</a>`;
 
                 document.getElementById("autocomplete").appendChild(div);
             });
