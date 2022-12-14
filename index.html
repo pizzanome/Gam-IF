@@ -28,7 +28,7 @@
         <div class="d-flex justify-content-center h-50">
             <div class="searchbar row">
                 <input autocomplete="off" id="recherche" class="search_input col-auto" type="search" name=""
-                       placeholder="Cherche un jeu, un studio, une licence, ..." oninput="autoComplete(this.value)">
+                       placeholder="Cherche un jeu, un studio, une licence, ..." oninput="autoComplete(this.value)" onkeydown="key_down(this.e)">
                 <button id="bouton-recherche" class="btn btn-default search_icon" type="submit"
                         onclick="rechercheParNom()">
                     <i class="fas fa-search"></i>
@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container containerCardResult">
                 <div id="contenaireResultat" class="row">
                 </div>
             </div>
@@ -63,5 +63,16 @@
 
 <script src="utils.js"></script>
 <script src="recherche.js"></script>
+<script>
+    function key_down(e) {
+        //define e as event if not defined
+        if (!e) {
+            e = window.event;
+        }
+        if(e.keyCode === 13) {
+            rechercheParNom();
+        }
+    }
+</script>
 </body>
 </html>
