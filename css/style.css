@@ -28,7 +28,7 @@ p {
 }
 
 
-.button-filtre,.button-filtre:hover  {
+input[type=checkbox]:checked + label{
     background: #F87F7F;
     color: #ffff;
     /* couleur texte CA8D8D*/
@@ -37,7 +37,7 @@ p {
     margin-right: auto;
 }
 
-input[type=checkbox]:checked + label{
+.button-filtre,.button-filtre:hover{
     background: transparent;
     color: #F87F7F;
     border-color: #F87F7F;
@@ -49,6 +49,10 @@ input[type=checkbox]:checked + label{
 
 .titre {
     margin-top: 70px;
+}
+
+.titreJeu{
+    margin-top: 30px;
 }
 
 .gameif {
@@ -117,6 +121,13 @@ input[type=checkbox]:checked + label{
     position: absolute;
 }
 
-.imageJeu{
-    background-color: rgb(300, 300, 300);
+.descriptionCard{
+    /*justifie le texte*/
+    text-align: justify;
+}
+
+.descriptionJeu{
+    /*justifie le texte*/
+    text-align: justify;
+    margin-top: 40px;
 }

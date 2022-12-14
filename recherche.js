@@ -1,4 +1,5 @@
 function rechercheParNom(){
+    document.getElementById("autocomplete").style.display = "none";
     var nom = document.getElementById("recherche").value;
     var requete = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
         'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>' +
@@ -46,7 +47,7 @@ function afficherResultats(data) {
                     <h5 class="card-title">${nom}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">${date}</h6>
-                    <p class="card-text" style="color: #353b48">${description}</p>
+                    <p class="card-text descriptionCard" style="color: #353b48">${description}</p>
                     <a href=${lien} class="btn btn-primary">Voir détails</a>
                 </div>
         </div>`;
@@ -74,7 +75,7 @@ function autoComplete(value) {
             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
             SELECT ?game ?name ?description WHERE {
                 ?game a dbo:VideoGame; a dbo:Software; rdfs:comment ?description; foaf:name ?name.FILTER(regex(?name,"^${value}") && langMatches(lang(?description),"FR"))
-            } LIMIT 5
+            }
     `;
 
     executeSparqlRequest(request)

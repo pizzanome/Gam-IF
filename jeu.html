@@ -14,7 +14,6 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="css/style.css">
-    <!--link type="text/css" rel="stylesheet" href="https://bootswatch.com/5/vapor/bootstrap.css"-->
     <script type="application/javascript" src="jeux_video.js"></script>
 </head>
 
@@ -23,62 +22,55 @@
 <!-- jeu -->
 <div class="container-fluid">
 
-    <div class="container h-30 titre">
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-            </svg>
-        </button>
+    <div class="container h-30 titreJeu">
         <div class="row">
-            <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                <h1 class="text-left">Game'IF</h1>
+            <button type="button" class="btn btn-secondary col-md-1 col-lg-1 col-xs-1 col-sm-1" onclick="window.location.href='index.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                </svg>
+            </button>
+            <div class="col-4">
+                <h2 class="text-left">Game'IF</h2>
             </div>
         </div>
     </div>
-    <br><br>
 
-    <div class="row">
-        <div class="col-4">
+    <div class="container">
+        <div class="row ">
+            <div class="col-4 mx-auto">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-10">
+                        <!--IMAGE ******************************************************************-->
+                        <img id="jeu-image" src="img/assassin.png" alt="Game logo" width="100%">
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
 
-            <div class="row">
-                <div class="col">
-                </div>
-                <div class="col-10">
-                    <!--IMAGE ******************************************************************-->
-                    <img id="jeu-image" src="img/assassin.png" alt="Game logo" class="imageJeu" width="100%">
-                </div>
-                <div class="col">
-                </div>
-            </div>
-
-            <br><br><br>
+                <br><br><br>
 
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="jeu-genre" class="list-group-item d-flex justify-content-between align-items-center">
                     Genre :
                     <!--GENRE ******************************************************************-->
-                    <span id="jeu-genre" class="badge bg-primary badge-pill">Action</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="jeu-developpeur" class="list-group-item d-flex justify-content-between align-items-center">
                     Développeur :
                     <!--DEVELOPPEUR ****************************************************************** TODO : onclick-->
-                    <span id="jeu-developpeur" class="badge bg-primary badge-pill" onclick="">Ubisoft</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="jeu-editeur" class="list-group-item d-flex justify-content-between align-items-center">
                     Editeur :
                     <!--EDITEUR ******************************************************************-->
-                    <span id="jeu-editeur" class="badge bg-primary badge-pill">Ubisoft</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="jeu-directeur" class="list-group-item d-flex justify-content-between align-items-center">
                     Directeur :
                     <!--DIRECTEUR ******************************************************************-->
-                    <span id="jeu-directeur" class="badge bg-primary badge-pill">Nom du mec</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="jeu-date" class="list-group-item d-flex justify-content-between align-items-center">
                     Date de sortie :
                     <!--DATE ******************************************************************-->
-                    <span id="jeu-date" class="badge bg-primary badge-pill">10 novembre 2020</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Plateforme :
@@ -93,17 +85,18 @@
             </ul>
         </div>
 
-        <div class="col-8">
-            <div class="gameif">
-                <!--NOM ******************************************************************-->
-                <h2 id="jeu-nom" class="text-center">Assassin's Creed Valhalla</h2>
-            </div>
+            <div class="col-7">
+                <div>
+                    <!--NOM ******************************************************************-->
+                    <h2 id="jeu-nom" class="text-center">Assassin's Creed Valhalla</h2>
+                </div>
 
-            <div class="gameif">
-                <p id="jeu-description" align="justify">
-                    <!--DESCRIPTION ******************************************************************-->
-                    Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft. It is the twelfth major installment in the Assassin's Creed series, and the successor to 2018's Assassin's Creed Odyssey. Principally set in the years 872–878 AD, the game recounts a fictional story during the Viking expansions into the British Isles. Players control Eivor Varinsdottir, a Viking raider who, while attempting to establish a new Viking clan in England, becomes embroiled in the centuries-old conflict between the Assassin Brotherhood, who fight for peace and liberty, and the Templar Order, who desire peace through control. The game also includes a framing story, set in the 21st century, which follows Layla Hassan, an Assassin who relives Eivor's memories so as to find a way to save the Earth from destruction. Development of the game began in 2017, around the release of Assassin's Creed Origins. Ubisoft Montreal led its three-year development with help from fourteen other Ubisoft studios worldwide, as well as Sperasoft...
-                </p>
+                <div class="descriptionJeu">
+                    <p id="jeu-description">
+                        <!--DESCRIPTION ******************************************************************-->
+                        Assassin's Creed Valhalla is a 2020 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft. It is the twelfth major installment in the Assassin's Creed series, and the successor to 2018's Assassin's Creed Odyssey. Principally set in the years 872–878 AD, the game recounts a fictional story during the Viking expansions into the British Isles. Players control Eivor Varinsdottir, a Viking raider who, while attempting to establish a new Viking clan in England, becomes embroiled in the centuries-old conflict between the Assassin Brotherhood, who fight for peace and liberty, and the Templar Order, who desire peace through control. The game also includes a framing story, set in the 21st century, which follows Layla Hassan, an Assassin who relives Eivor's memories so as to find a way to save the Earth from destruction. Development of the game began in 2017, around the release of Assassin's Creed Origins. Ubisoft Montreal led its three-year development with help from fourteen other Ubisoft studios worldwide, as well as Sperasoft...
+                    </p>
+                </div>
             </div>
         </div>
     </div>

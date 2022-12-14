@@ -13,9 +13,10 @@ function recupererDonnees(){
         'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
-        'SELECT * WHERE {' +
-        '<'+ ressource +'> foaf:name ?name; dbo:genre ?genre; dbo:releaseDate ?date; dbo:developer ?dev; dbp:director ?directeur; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateforme.' +
+        'SELECT ?name ?dev ?directeur ?publisher ?description (GROUP_CONCAT(DISTINCT ?dates;SEPARATOR=";") AS ?date) (GROUP_CONCAT(DISTINCT ?genres;SEPARATOR=";") AS ?genre) (GROUP_CONCAT(DISTINCT ?plateformes;SEPARATOR=";") AS ?plateforme) WHERE {' +
+        '<'+ ressource +'> foaf:name ?name; dbp:genre ?genre; dbo:releaseDate ?dates; dbp:developer ?dev; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateformes.' +
         'FILTER(langMatches(lang(?description),"FR"))'+
+        'OPTIONAL{<'+ ressource +'> dbp:director ?directeur}' +
         '}';
 
     var url_base = "http://dbpedia.org/sparql";
@@ -37,10 +38,18 @@ function recupererDonnees(){
 
 function remplirDonnees(data){
     document.getElementById("jeu-nom").innerHTML = data.results.bindings[0].name.value;
-    recupererNomParRessource(data.results.bindings[0].genre.value,"jeu-genre");
-    document.getElementById("jeu-date").innerHTML = data.results.bindings[0].date.value;
+    const genres = data.results.bindings[0].genre.value.split(";");
+    for(let i = 0; i < genres.length; i++){
+        recupererNomParRessource(genres[i],"jeu-genre");
+    }
+    const dates = data.results.bindings[0].date.value.split(";");
+    for (let i = 0; i < dates.length; i++) {
+        document.getElementById("jeu-date").innerHTML += `<span class="badge bg-primary badge-pill">${dates[i]}</span>`;
+    }
     recupererNomParRessource(data.results.bindings[0].dev.value,"jeu-developpeur");
-    recupererNomParRessource(data.results.bindings[0].directeur.value, "jeu-directeur");
+    if(data.results.bindings[0].directeur !== undefined){
+        recupererNomParRessource(data.results.bindings[0].directeur.value, "jeu-directeur");
+    }
     recupererNomParRessource(data.results.bindings[0].publisher.value,"jeu-editeur");
     document.getElementById("jeu-description").innerHTML = data.results.bindings[0].description.value;
     //window.getElementById("jeu-plateforme").innerHTML = data.results.bindings[0].description.;
@@ -72,7 +81,7 @@ function recupererNomParRessource(ressource, id){
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
             console.log(data.results.bindings[0].name.value);
-            document.getElementById(id).innerHTML = data.results.bindings[0].name.value;
+            document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${data.results.bindings[0].name.value}</span>`;
         }
     };
     xmlhttp.open("GET", url, true);
