@@ -38,6 +38,7 @@ function recupererDonnees(){
 
 function remplirDonnees(data){
     document.getElementById("jeu-nom").innerHTML = data.results.bindings[0].name.value;
+    getImageWiki(data.results.bindings[0].name.value, "jeu-image");
     const genres = data.results.bindings[0].genre.value.split(";");
     for(let i = 0; i < genres.length; i++){
         recupererNomParRessource(genres[i],"jeu-genre");
@@ -86,4 +87,31 @@ function recupererNomParRessource(ressource, id){
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send(null);
+}
+function getImageWiki(search,id){
+    const url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles="+search+"&prop=images&format=json";
+    let image_name;
+    let image_url;
+    let image_ref;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const pages = data.query.pages;
+            const page = pages[Object.keys(pages)[0]];
+            const images = page.images;
+            image_name = images[0].title;
+            image_name = image_name.replace("File:","");
+            image_url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=File:"+image_name+"&prop=imageinfo&iiprop=url&format=json";
+            console.log(image_url);
+            fetch(image_url)
+                .then(response => response.json())
+                .then(data => {
+                    const pages = data.query.pages;
+                    const page = pages[Object.keys(pages)[0]];
+                    const image = page.imageinfo;
+                    image_ref = image[0].url;
+                    console.log(image_ref);
+                    document.getElementById(id).src = image_ref;
+                });
+        });
 }

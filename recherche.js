@@ -40,9 +40,11 @@ function afficherResultats(data) {
         if(description.length > 250){
             description = description.substring(0,250)+"...";
         }
-
-        div.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 21rem;">
-            <img src="img/assassin.png" class="card-img-top" alt="...">
+        //get the image src with the getimagewiki function and use nom as parameter
+        //then replace the img src with the value of the promise
+        getImageWiki(nom).then(function (value) {
+            div.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 21rem;">
+            <img src=${value} class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${nom}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
@@ -51,6 +53,7 @@ function afficherResultats(data) {
                     <a href=${lien} class="btn btn-primary">Voir détails</a>
                 </div>
         </div>`;
+        });
     });
 }
 
@@ -90,13 +93,13 @@ function autoComplete(value) {
         });
 }
 
-function getImage(){
-    const search = document.getElementById("recherche").value;
-    const url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles="+search+"&prop=pageimages&format=json";
+function getImageWiki(search){
+    const url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles="+search+"&prop=images&format=json";
     let image_name;
     let image_url;
     let image_ref;
-    fetch(url)
+    //return promise
+    return fetch(url)
         .then(response => response.json())
         .then(data => {
             const pages = data.query.pages;
@@ -106,18 +109,31 @@ function getImage(){
             image_name = image_name.replace("File:","");
             image_url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=File:"+image_name+"&prop=imageinfo&iiprop=url&format=json";
             console.log(image_url);
-            fetch(image_url)
+            return fetch(image_url)
                 .then(response => response.json())
-                .then(data2 => {
-                    const pages2 = data2.query.pages;
-                    const page2 = pages2[Object.keys(pages2)[0]];
-                    const imageinfo = page2.imageinfo;
-                    image_ref = imageinfo[0].url;
+                .then(data => {
+                    const pages = data.query.pages;
+                    const page = pages[Object.keys(pages)[0]];
+                    const image = page.imageinfo;
+                    image_ref = image[0].url;
                     console.log(image_ref);
-                    document.getElementById("searchimage").src = image_ref;
-                })
-                .catch(error => console.log(error));
+                    return image_ref;
 
-        })
-        .catch(error => console.log(error));
+                });
+        });
+}
+function getImageGBApi(nom){
+    const key = "361817f45f87302548f18c9121d15e9d227db4af";
+    const url = "https://www.giantbomb.com/api/search/?api_key="+key+"&format=json&query="+nom+"&resources=game";
+    let image_url;
+    //return promise
+    return fetch(url, {mode: 'no-cors'})
+    .then(response => response.json())
+    .then(data => {
+        const results = data.results;
+        const result = results[0];
+        const image = result.image;
+        image_url = image.medium_url;
+        return image_url;
+    });
 }
