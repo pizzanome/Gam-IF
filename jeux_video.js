@@ -14,7 +14,7 @@ function recupererDonnees(){
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
         'SELECT ?name ?dev ?directeur ?publisher ?description (GROUP_CONCAT(DISTINCT ?dates;SEPARATOR=";") AS ?date) (GROUP_CONCAT(DISTINCT ?genres;SEPARATOR=";") AS ?genre) (GROUP_CONCAT(DISTINCT ?plateformes;SEPARATOR=";") AS ?plateforme) WHERE {' +
-        '<'+ ressource +'> foaf:name ?name; dbp:genre ?genre; dbo:releaseDate ?dates; dbp:developer ?dev; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateformes.' +
+        '<'+ ressource +'> foaf:name ?name; dbp:genre ?genres; dbo:releaseDate ?dates; dbp:developer ?dev; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateformes.' +
         'FILTER(langMatches(lang(?description),"FR"))'+
         'OPTIONAL{<'+ ressource +'> dbp:director ?directeur}' +
         '}';
@@ -53,6 +53,10 @@ function remplirDonnees(data){
     }
     recupererNomParRessource(data.results.bindings[0].publisher.value,"jeu-editeur");
     document.getElementById("jeu-description").innerHTML = data.results.bindings[0].description.value;
+    const plateformes = data.results.bindings[0].plateforme.value.split(";");
+    for (let i = 0; i < plateformes.length; i++) {
+        recupererNomParRessource(plateformes[i],"jeu-plateforme");
+    }
     //window.getElementById("jeu-plateforme").innerHTML = data.results.bindings[0].description.;
 }
 
