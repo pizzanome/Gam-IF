@@ -11,26 +11,15 @@ function recupererDonneesDevelopper(){
         'PREFIX dbpedia2: <http://dbpedia.org/property/>' +
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
-        'SELECT ?name (GROUP_CONCAT(DISTINCT ?fondateurs; SEPARATOR=";") AS ?fondateurs) ?date (GROUP_CONCAT(DISTINCT ?localisation; SEPARATOR=";") AS ?localisations) ?effectif ?anneeEffectif ?revenue ?anneeRevenue ?description WHERE {
-            VALUES ?ressource {'+ressource+'}
-            ?ressource rdfs:label ?name; dbo:abstract ?description.
-        {?ressource dbp:foundedBy ?fondateurs} UNION {?ressource dbp:founders ?fondateurs} UNION {?ressource dbp:founder ?fondateurs}
-    {?ressource dbo:locationCity ?localisation} UNION {?ressource dbp:locationCity ?localisation} UNION {?ressource dbo:location ?localisation}
-    OPTIONAL{
-            ?ressource dbo:foundingYear ?date.
-    }
-    OPTIONAL{
-            ?ressource dbo:revenue ?revenue; dbo:revenueYear ?anneeRevenue.
-        FILTER(regex(datatype(?revenue),"http://dbpedia.org/datatype/usDollar"))
-    }
-    OPTIONAL{
-        {?ressource dbp:numEmployees ?effectif} UNION {?ressource dbo:numEmployees ?effectif}
-        OPTIONAL{
-                ?ressource dbp:numEmployeesYear ?anneeEffectif.
-        }
-    }
-    FILTER(langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR"))
-}'';
+        'SELECT ?name (GROUP_CONCAT(DISTINCT ?fondateurs; SEPARATOR=";") AS ?fondateurs) ?date (GROUP_CONCAT(DISTINCT ?localisation; SEPARATOR=";") AS ?localisations) ?effectif ?anneeEffectif ?revenue ?anneeRevenue ?description WHERE {' +
+        'VALUES ?ressource {'+ressource+'}' +
+        '?ressource rdfs:label ?name; dbo:abstract ?description.'+
+        '{?ressource dbp:foundedBy ?fondateurs} UNION {?ressource dbp:founders ?fondateurs} UNION {?ressource dbp:founder ?fondateurs}' +
+        '{?ressource dbo:locationCity ?localisation} UNION {?ressource dbp:locationCity ?localisation} UNION {?ressource dbo:location ?localisation}' +
+        'OPTIONAL{ ?ressource dbo:foundingYear ?date.}' +
+        'OPTIONAL{?ressource dbo:revenue ?revenue; dbo:revenueYear ?anneeRevenue. FILTER(regex(datatype(?revenue),"http://dbpedia.org/datatype/usDollar"))}' +
+        'OPTIONAL{{?ressource dbp:numEmployees ?effectif} UNION {?ressource dbo:numEmployees ?effectif} OPTIONAL{?ressource dbp:numEmployeesYear ?anneeEffectif.}}' +
+        'FILTER(langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR"))}';
 
     var url_base = "http://dbpedia.org/sparql";
     var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
