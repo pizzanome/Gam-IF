@@ -127,7 +127,7 @@ function rechercheParType2022() {
     //requete pour les jeux de 2010 sachant que dbo:releaseDate est sous la forme "2010-01-01"
     document.getElementById("autocomplete").style.display = "none";
     var nom = document.getElementById("recherche").value;
-    var char = "[01]";
+    var char = "202[01]";
     var requete = `
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -141,9 +141,10 @@ function rechercheParType2022() {
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?jeu ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?dates) WHERE {
             ?jeu a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?dates; rdfs:comment ?description; dbo:series ?serie.`+
-        `FILTER(regex(?name,".*`+nom+`.*") && regex(?dates,"202`+char+`") && langMatches(lang(?description),"FR"))
-        }
+        `FILTER(regex(?name,".*`+nom+`.*") && regex(?dates,".*`+char+`.*") && langMatches(lang(?description),"FR"))
+        } LIMIT 10
         `;
+    //regex(?dates,"202`+char+`")
 
     var url_base = "http://dbpedia.org/sparql";
     var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
