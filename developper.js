@@ -12,7 +12,7 @@ function recupererDonneesDevelopper(){
         'PREFIX dbpedia: <http://dbpedia.org/>' +
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
         'SELECT ?name (GROUP_CONCAT(DISTINCT ?fondateurs; SEPARATOR=";") AS ?fondateurs) ?date (GROUP_CONCAT(DISTINCT ?localisation; SEPARATOR=";") AS ?localisations) ?effectif ?anneeEffectif ?revenue ?anneeRevenue ?description WHERE {' +
-        'VALUES ?ressource {'+ressource+'}' +
+        'VALUES ?ressource {<'+ressource+'>}' +
         '?ressource rdfs:label ?name; dbo:abstract ?description.'+
         '{?ressource dbp:foundedBy ?fondateurs} UNION {?ressource dbp:founders ?fondateurs} UNION {?ressource dbp:founder ?fondateurs}' +
         '{?ressource dbo:locationCity ?localisation} UNION {?ressource dbp:locationCity ?localisation} UNION {?ressource dbo:location ?localisation}' +
