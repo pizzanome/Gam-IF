@@ -21,30 +21,87 @@
             </div>
         </div>
     </div>
+</div>
+<div class="container-fluid">
     <div class="gameif">
-        <h2 class="text-center">GameIF</h2>
+        <h2 class="text-center" id="searchBarPos">GameIF</h2>
     </div>
     <div class="container h-50">
         <div class="d-flex justify-content-center h-50">
             <div class="searchbar row">
                 <input autocomplete="off" id="recherche" class="search_input col-auto" type="search" name=""
-                       placeholder="Cherche un jeu, un studio, une licence, ..." oninput="autoComplete(this.value)" onkeydown="key_down(this.e)">
+                       placeholder="Cherche un jeu, un studio, une licence, ..." oninput="autoComplete(this.value)"
+                       onkeydown="key_down(this.e)">
                 <button id="bouton-recherche" class="btn btn-default search_icon" type="submit"
                         onclick="rechercheParNom()">
                     <i class="fas fa-search"></i>
                 </button>
-            </div>
-            <div id="autocomplete" class="autocomplete-items">
+
+                <div class="list-group listAuto" id="autocomplete"></div>
 
             </div>
+            <!-- <div id="autocomplete" class="autocomplete-items"> -->
+
+            </div>
+
         </div>
 
         <!-- Affichage des boutons filtres -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                    <input id="bouton-filtre-jeu" type="checkbox" hidden>
-                    <label for="bouton-filtre-jeu" class="btn btn-default button-filtre" onclick="rechercheParType('jeu')"><span>Jeu</span></label>
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-2009" type="checkbox" hidden>
+                    <label for="bouton-filtre-2009" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('2009')"><span>2009</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12 ">
+                    <input id="bouton-filtre-2009-2015" type="checkbox" hidden>
+                    <label for="bouton-filtre-2009-2015" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('2009 - 2015')"><span>2009 - 2015</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12 ">
+                    <input id="bouton-filtre-2015-2021" type="checkbox" hidden>
+                    <label for="bouton-filtre-2015-2021" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('2015 - 2021')"><span>2015 - 2021</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-2022" type="checkbox" hidden>
+                    <label for="bouton-filtre-2022" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('2022')"><span>2022</span></label>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-Playstation" type="checkbox" hidden>
+                    <label for="bouton-filtre-Playstation" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('Playstation')"><span>Playstation</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-Ordinateur" type="checkbox" hidden>
+                    <label for="bouton-filtre-Ordinateur" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('Ordinateur')"><span>Ordinateur</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-XBox" type="checkbox" hidden>
+                    <label for="bouton-filtre-XBox" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('XBox')"><span>XBox</span></label>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-Ubisoft" type="checkbox" hidden>
+                    <label for="bouton-filtre-Ubisoft" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('Ubisoft')"><span>Ubisoft</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-Arkane-Studio" type="checkbox" hidden>
+                    <label for="bouton-filtre-Arkane-Studio" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('Playstation')"><span>Arkane Studio</span></label>
+                </div>
+                <div class="col-md-auto col-xs-12">
+                    <input id="bouton-filtre-Nintendo" type="checkbox" hidden>
+                    <label for="bouton-filtre-Nintendo" class="btn btn-default button-filtre"
+                           onclick="rechercheParType('Nintendo')"><span>Nintendo</span></label>
                 </div>
             </div>
 
@@ -69,7 +126,7 @@
         if (!e) {
             e = window.event;
         }
-        if(e.keyCode === 13) {
+        if (e.keyCode === 13) {
             rechercheParNom();
         }
     }
