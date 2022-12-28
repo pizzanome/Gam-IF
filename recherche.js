@@ -122,6 +122,94 @@ function getImageWiki(search){
                 });
         });
 }
+
+function rechercheParType2022() {
+    //requete pour les jeux de 2010 sachant que dbo:releaseDate est sous la forme "2010-01-01"
+    document.getElementById("autocomplete").style.display = "none";
+    var nom = document.getElementById("recherche").value;
+    var char = "[01]";
+    var requete = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        PREFIX : <http://dbpedia.org/resource/>
+        PREFIX dbpedia2: <http://dbpedia.org/property/>
+        PREFIX dbpedia: <http://dbpedia.org/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT ?jeu ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?dates) WHERE {
+            ?jeu a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?dates; rdfs:comment ?description; dbo:series ?serie.`+
+        `FILTER(regex(?name,".*`+nom+`.*") && regex(?dates,"202`+char+`") && langMatches(lang(?description),"FR"))
+        }
+        `;
+
+    var url_base = "http://dbpedia.org/sparql";
+    var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
+    console.log(url);
+
+    executeSparqlRequest(requete)
+        .then(data => afficherResultats(data));
+}
+
+function rechercheParPlateforme(type) {
+    //requete pour les jeux de 2010 sachant que dbo:releaseDate est sous la forme "2010-01-01"
+    document.getElementById("autocomplete").style.display = "none";
+    var nom = document.getElementById("recherche").value;
+    var requete = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        PREFIX : <http://dbpedia.org/resource/>
+        PREFIX dbpedia2: <http://dbpedia.org/property/>
+        PREFIX dbpedia: <http://dbpedia.org/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT ?jeu ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?dates) WHERE {
+            ?jeu a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?dates; rdfs:comment ?description; dbo:series ?serie; dbp:platforms ?platform.`+
+        `FILTER(regex(?name,".*`+nom+`.*") && regex(?platform,"`+type+`") && langMatches(lang(?description),"FR"))
+        } LIMIT 30
+        `;
+
+    var url_base = "http://dbpedia.org/sparql";
+    var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
+    console.log(url);
+
+    executeSparqlRequest(requete)
+        .then(data => afficherResultats(data));
+}
+
+function rechercheParDevelopper(type) {
+    //requete pour les jeux de 2010 sachant que dbo:releaseDate est sous la forme "2010-01-01"
+    document.getElementById("autocomplete").style.display = "none";
+    var nom = document.getElementById("recherche").value;
+    var requete = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        PREFIX : <http://dbpedia.org/resource/>
+        PREFIX dbpedia2: <http://dbpedia.org/property/>
+        PREFIX dbpedia: <http://dbpedia.org/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT ?jeu ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?dates) WHERE {
+            ?jeu a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?dates; rdfs:comment ?description; dbo:series ?serie; dbo:developer ?developer.`+
+        `FILTER(regex(?name,".*`+nom+`.*") && regex(?developer,"`+type+`") && langMatches(lang(?description),"FR"))
+        } LIMIT 30
+        `;
+
+    var url_base = "http://dbpedia.org/sparql";
+    var url = url_base + "?query=" + encodeURIComponent(requete) + "&format=json";
+    console.log(url);
+
+    executeSparqlRequest(requete)
+        .then(data => afficherResultats(data));
+}
 function getImageGBApi(nom){
     const key = "361817f45f87302548f18c9121d15e9d227db4af";
     const url = "https://www.giantbomb.com/api/search/?api_key="+key+"&format=json&query="+nom+"&resources=game";
