@@ -1,4 +1,6 @@
 function executeSparqlRequest(request) {
+    console.log(request);
+
     return new Promise((resolve) => {
         const url = `http://dbpedia.org/sparql?query=${encodeURIComponent(request)}&format=json`;
 
@@ -14,3 +16,43 @@ function executeSparqlRequest(request) {
         xmlhttp.send(null);
     });
 }
+
+function getImageFromWikipedia(game) {
+    const url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${game}&prop=images&format=json`;
+
+    return fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const pages = data.query.pages;
+            const page = pages[Object.keys(pages)[0]];
+
+            const imageName = page.images[0].title.replace("File:", "");
+            const imageUrl = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=File:${imageName}&prop=imageinfo&iiprop=url&format=json`;
+
+            return fetch(imageUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const pages = data.query.pages;
+                    const page = pages[Object.keys(pages)[0]];
+                    const image = page.imageinfo;
+
+                    return image[0].url;
+                });
+        });
+}
+
+/*function getImageGBApi(nom) {
+    const key = "361817f45f87302548f18c9121d15e9d227db4af";
+    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=json&query=" + nom + "&resources=game";
+    let image_url;
+    //return promise
+    return fetch(url, {mode: 'no-cors'})
+        .then(response => response.json())
+        .then(data => {
+            const results = data.results;
+            const result = results[0];
+            const image = result.image;
+            image_url = image.medium_url;
+            return image_url;
+        });
+}*/

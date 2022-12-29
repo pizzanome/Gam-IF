@@ -30,7 +30,7 @@ function recupererDonneesDevelopper(){
         if (this.readyState == 4 && this.status == 200) {
             var results = JSON.parse(this.responseText);
             console.log(results);
-            remplirDonnees(results);
+            printData(results);
         }
     };
     xmlhttp.open("GET", url, true);
