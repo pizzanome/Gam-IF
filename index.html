@@ -57,61 +57,61 @@
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-2009" type="checkbox" hidden>
                 <label for="bouton-filtre-2009" class="btn btn-default button-filtre"
-                       onclick="addFilter('?date < \'2009-01-01\'^^xsd:date')"><span>< 2009</span></label>
+                       onclick="filterByDate('bouton-filtre-2009', '?date < \'2009-01-01\'^^xsd:date')"><span>< 2009</span></label>
             </div>
             <div class="col-md-auto col-xs-12 ">
                 <input id="bouton-filtre-2009-2015" type="checkbox" hidden>
                 <label for="bouton-filtre-2009-2015" class="btn btn-default button-filtre"
-                       onclick="addFilter('?date > \'2009-01-01\'^^xsd:date && ?date < \'2015-01-01\'^^xsd:date')"><span>2009 - 2015</span></label>
+                       onclick="filterByDate('bouton-filtre-2009-2015', '?date > \'2009-01-01\'^^xsd:date && ?date < \'2015-01-01\'^^xsd:date')"><span>2009 - 2015</span></label>
             </div>
             <div class="col-md-auto col-xs-12 ">
                 <input id="bouton-filtre-2015-2021" type="checkbox" hidden>
                 <label for="bouton-filtre-2015-2021" class="btn btn-default button-filtre"
-                       onclick="addFilter('?date > \'2015-01-01\'^^xsd:date && ?date < \'2021-01-01\'^^xsd:date')"><span>2015 - 2021</span></label>
+                       onclick="filterByDate('bouton-filtre-2015-2021', '?date > \'2015-01-01\'^^xsd:date && ?date < \'2021-01-01\'^^xsd:date')"><span>2015 - 2021</span></label>
             </div>
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-2022" type="checkbox" hidden>
                 <label for="bouton-filtre-2022" class="btn btn-default button-filtre"
-                       onclick="addFilter('?date > \'2022-01-01\'^^xsd:date')"><span>2022</span></label>
+                       onclick="filterByDate('bouton-filtre-2022', '?date > \'2022-01-01\'^^xsd:date')"><span>2022</span></label>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-Playstation" type="checkbox" hidden>
                 <label for="bouton-filtre-Playstation" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?platform,&quot;PlayStation&quot;)')"><span>Playstation</span></label>
+                       onclick="filterByPlatform('bouton-filtre-Playstation', 'PlayStation')"><span>Playstation</span></label>
             </div>
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-macOS" type="checkbox" hidden>
                 <label for="bouton-filtre-macOS" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?platform,&quot;MacOS&quot;)')"><span>MacOS</span></label>
+                       onclick="filterByPlatform('bouton-filtre-macOS', 'MacOS')"><span>MacOS</span></label>
             </div>
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-Windows" type="checkbox" hidden>
                 <label for="bouton-filtre-Windows" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?platform,&quot;Microsoft_Windows&quot;)')"><span>Windows</span></label>
+                       onclick="filterByPlatform('bouton-filtre-Windows', 'Microsoft_Windows')"><span>Windows</span></label>
             </div>
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-XBox" type="checkbox" hidden>
                 <label for="bouton-filtre-XBox" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?platform,&quot;Xbox&quot;)')"><span>XBox</span></label>
+                       onclick="filterByPlatform('bouton-filtre-XBox', 'Xbox')"><span>XBox</span></label>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-Ubisoft" type="checkbox" hidden>
                 <label for="bouton-filtre-Ubisoft" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?developer,&quot;Ubisoft&quot;)')"><span>Ubisoft</span></label>
+                       onclick="filterByDeveloper('bouton-filtre-Ubisoft', 'Ubisoft')"><span>Ubisoft</span></label>
             </div>
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-Arkane-Studio" type="checkbox" hidden>
                 <label for="bouton-filtre-Arkane-Studio" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?developer,&quot;Arkane&quot;)')"><span>Arkane Studios</span></label>
+                       onclick="filterByDeveloper('bouton-filtre-Arkane-Studio', 'Arkane')"><span>Arkane Studios</span></label>
             </div>
             <div class="col-md-auto col-xs-12">
                 <input id="bouton-filtre-Nintendo" type="checkbox" hidden>
                 <label for="bouton-filtre-Nintendo" class="btn btn-default button-filtre"
-                       onclick="addFilter('regex(?developer,&quot;Nintendo&quot;)')"><span>Nintendo</span></label>
+                       onclick="filterByDeveloper('bouton-filtre-Nintendo', 'Nintendo')"><span>Nintendo</span></label>
             </div>
         </div>
 

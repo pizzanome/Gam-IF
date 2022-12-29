@@ -1,13 +1,64 @@
-let filter = "";
+let dateFilter = {};
+let platformFilter = {};
+let developerFilter = {};
 
-function addFilter(filterToAdd) {
-    filter += " && " + filterToAdd;
+function filterByDate(buttonId, filter) {
+    const button = document.getElementById(buttonId);
+    if (button.classList.contains("active")) {
+        // Si le filtre a déjà été cliqué, on le retire
+        button.classList.remove("active");
+        delete dateFilter[buttonId];
+    } else {
+        // Sinon on l'ajoute
+        button.classList.add("active");
+        dateFilter[buttonId] = filter;
+    }
+}
+
+function filterByPlatform(buttonId, platform) {
+    const button = document.getElementById(buttonId);
+    if (button.classList.contains("active")) {
+        // Si le filtre a déjà été cliqué, on le retire
+        button.classList.remove("active");
+        delete platformFilter[buttonId];
+    } else {
+        // Sinon on l'ajoute
+        button.classList.add("active");
+        platformFilter[buttonId] = platform;
+    }
+}
+
+function filterByDeveloper(buttonId, developer) {
+    const button = document.getElementById(buttonId);
+    if (button.classList.contains("active")) {
+        // Si le filtre a déjà été cliqué, on le retire
+        button.classList.remove("active");
+        delete developerFilter[buttonId];
+    } else {
+        // Sinon on l'ajoute
+        button.classList.add("active");
+        developerFilter[buttonId] = developer;
+    }
 }
 
 function search() {
     document.getElementById("autocomplete").style.display = "none";
 
     const name = document.getElementById("recherche").value;
+
+    let filters = "";
+
+    if (Object.keys(dateFilter).length > 0) {
+        filters += " && " + Object.values(dateFilter).join(" || ");
+    }
+
+    if (Object.keys(platformFilter).length > 0) {
+        filters += " && " + Object.values(platformFilter).map(platform => `regex(?platform,";${platform}")`).join(" || ");
+    }
+
+    if (Object.keys(developerFilter).length > 0) {
+        filters += " && " + Object.values(developerFilter).map(developer => `regex(?developer,";${developer}")`).join(" || ");
+    }
 
     const request = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
         `PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -22,7 +73,7 @@ function search() {
         SELECT ?game ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?date)
         WHERE {
         ?game a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?date; dbp:series ?serie; rdfs:comment ?description; dbp:platforms ?platform; dbo:developer ?developer.
-        FILTER(regex(?name,".*${name}.*") && langMatches(lang(?description),"FR")${filter})
+        FILTER(regex(?name,".*${name}.*") && langMatches(lang(?description),"FR")${filters} )
         } LIMIT 30`;
 
     executeSparqlRequest(request)
@@ -101,7 +152,7 @@ function autoComplete(value) {
                 const name = result.name.value;
 
                 div.innerHTML += `<a href="jeu.html?ressource=${resource}" class="list-group-item list-group-item-action">${name}</a>`;
-                document.getElementById("autocomplete").appendChild(div);
+                //document.getElementById("autocomplete").appendChild(div);
             });
         });
 }
