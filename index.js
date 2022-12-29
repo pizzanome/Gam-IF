@@ -152,7 +152,7 @@ function autoComplete(value) {
                 const name = result.name.value;
 
                 div.innerHTML += `<a href="jeu.html?ressource=${resource}" class="list-group-item list-group-item-action">${name}</a>`;
-                //document.getElementById("autocomplete").appendChild(div);
+                document.getElementById("autocomplete").appendChild(div);
             });
         });
 }
