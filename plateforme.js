@@ -1,6 +1,7 @@
 function getData(){
+    const params = new URLSearchParams(window.location.search);
+    const ressource = params.get("ressource");
 
-    var ressource = document.getElementById("recherche").value;
     var request = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
         'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>' +
         'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' +
@@ -13,7 +14,8 @@ function getData(){
         'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' +
         'SELECT ?name (GROUP_CONCAT(DISTINCT ?developer; SEPARATOR=";") AS ?developers) (GROUP_CONCAT(DISTINCT ?fabricant; SEPARATOR=";") AS ?fabricants) ?systeme ?predecesseur ?successeur ?description WHERE {'+
         'VALUES ?ressource {<'+ ressource +'>}' +
-        '?ressource rdfs:label ?name; dbo:abstract ?description; dbp:developer ?developer; dbp:manufacturer ?fabricant.'+
+        '?ressource rdfs:label ?name; dbo:abstract ?description; dbp:developer ?developer.'+
+        'OPTIONAL{ ?ressource dbp:manufacturer ?fabricant.}'+
         'OPTIONAL{ ?ressource dbp:os ?systeme.}'+
         'OPTIONAL{ ?ressource dbp:predecessor ?predecesseur.}'+
         'OPTIONAL{ ?ressource dbp:successor ?successeur.}'+
@@ -34,9 +36,11 @@ function printData(data) {
         printResourceName(developers[i], "plateforme-developpeur");
     }
 
-    const manufactureurs = data.results.bindings[0].fabricants.value.split(";");
-    for (let i = 0; i < manufactureurs.length; i++) {
-        printResourceName(manufactureurs[i], "plateforme-manufactureur");
+    if (data.results.bindings[0].fabricants !== undefined) {
+        const manufactureurs = data.results.bindings[0].fabricants.value.split(";");
+        for (let i = 0; i < manufactureurs.length; i++) {
+            printResourceName(manufactureurs[i], "plateforme-manufactureur");
+        }
     }
 
     if (data.results.bindings[0].systeme !== undefined) {
@@ -44,11 +48,11 @@ function printData(data) {
     }
 
     if (data.results.bindings[0].predecesseur !== undefined) {
-        printResourceName(data.results.bindings[0].predecesseur.value, "plateforme-predecesseur");
+        printPlateformeLink(data.results.bindings[0].predecesseur.value, "plateforme-predecesseur");
     }
 
     if (data.results.bindings[0].successeur !== undefined) {
-        printResourceName(data.results.bindings[0].successeur.value, "plateforme-successeur");
+        printPlateformeLink(data.results.bindings[0].successeur.value, "plateforme-successeur");
     }
 
     document.getElementById("plateforme-description").innerHTML = data.results.bindings[0].description.value;

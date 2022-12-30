@@ -50,6 +50,6 @@ function printData(data) {
 
     const plateformes = data.results.bindings[0].plateforme.value.split(";");
     for (let i = 0; i < plateformes.length; i++) {
-        printResourceName(plateformes[i], "jeu-plateforme");
+        printPlateformeLink(plateformes[i], "jeu-plateforme");
     }
 }
