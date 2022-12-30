@@ -1,6 +1,7 @@
-function recupererDonneesDeveloper(){
+function getData(){
+    const params = new URLSearchParams(window.location.search);
+    const ressource = params.get("ressource");
 
-    var ressource = document.getElementById("recherche").value;
     var request = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
         'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>' +
         'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' +
@@ -22,9 +23,42 @@ function recupererDonneesDeveloper(){
         'FILTER(langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR"))}';
 
     executeSparqlRequest(request)
-        .then(data => printDataDeveloper(data));
+        .then(data => printData(data));
 }
 
-function printDataDeveloper(data){
+function printData(data) {
+    document.getElementById("developer-nom").innerHTML = data.results.bindings[0].name.value;
 
+    getImageFromWikipedia(data.results.bindings[0].name.value)
+        .then(imageUrl => document.getElementById("developer-image").src = imageUrl);
+
+    const fondateurs = data.results.bindings[0].fondateurs.value.split(";");
+    for (let i = 0; i < fondateurs.length; i++) {
+        printResourceName(fondateurs[i], "developer-fondateurs");
+    }
+
+    if(data.results.bindings[0].date !== undefined){
+        printResourceName(data.results.bindings[0].date.value, "developer-date");
+    }
+
+    const localisations = data.results.bindings[0].localisations.value.split(";");
+    for (let i = 0; i < localisations.length; i++) {
+        printResourceName(localisations[i], "developer-siege");
+    }
+
+    if (data.results.bindings[0].effectif !== undefined) {
+        printResourceName(data.results.bindings[0].effectif.value, "developer-effectif");
+        if(data.results.bindings[0].anneeEffectif !== undefined){
+            printResourceName(data.results.bindings[0].anneeEffectif.value, "developer-anneeEffectif");
+        }
+    }
+
+    if (data.results.bindings[0].revenu !== undefined) {
+        printResourceName(data.results.bindings[0].revenu.value, "developer-revenu");
+        if(data.results.bindings[0].anneeRevenu !== undefined){
+            printResourceName(data.results.bindings[0].anneeRevenu.value, "developer-anneeRevenu");
+        }
+    }
+
+    document.getElementById("developer-description").innerHTML = data.results.bindings[0].description.value;
 }

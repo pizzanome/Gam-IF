@@ -113,3 +113,31 @@ function printPlateformeLink(ressource, id) {
             });
     }
 }
+
+function printDeveloperLink(ressource, id) {
+    if(ressource.includes("http://dbpedia.org/resource/")){
+        document.getElementById(id).innerHTML += `<a href="developer.html?ressource=${ressource}" class="badge bg-primary badge-pill">${ressource.split("http://dbpedia.org/resource/")[1]}</a>`;
+    }else {
+        const request = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        PREFIX : <http://dbpedia.org/resource/>
+        PREFIX dbpedia2: <http://dbpedia.org/property/>
+        PREFIX dbpedia: <http://dbpedia.org/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT ?developer
+        WHERE {
+        ?developer a dbo:Company; rdfs:label ?name.
+        FILTER(regex(?name,"${ressource}"))
+        }`;
+
+        executeSparqlRequest(request)
+            .then(data => {
+                var developer = data.results.bindings[0].developer.value;
+                document.getElementById(id).innerHTML += `<a href="developer.html?ressource=${developer}" class="badge bg-primary badge-pill">${ressource}</a>`;
+            });
+    }
+}

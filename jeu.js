@@ -41,7 +41,7 @@ function printData(data) {
         document.getElementById("jeu-date").innerHTML += `<span class="badge bg-primary badge-pill">${dates[i]}</span>`;
     }
 
-    printResourceName(data.results.bindings[0].dev.value, "jeu-developpeur");
+    printDeveloperLink(data.results.bindings[0].dev.value, "jeu-developpeur");
 
     if (data.results.bindings[0].directeur !== undefined) {
         printResourceName(data.results.bindings[0].directeur.value, "jeu-directeur");
