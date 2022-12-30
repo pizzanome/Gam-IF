@@ -60,8 +60,9 @@ function search() {
         filters += " && (" + Object.values(developerFilter).map(developer => `regex(?developer,";${developer}")`).join(" || ") + ")";
     }
 
-    const request = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
-        `PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    const request = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
@@ -73,7 +74,7 @@ function search() {
         SELECT ?game ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?date)
         WHERE {
         ?game a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?date; dbp:series ?serie; rdfs:comment ?description; dbp:platforms ?platform; dbo:developer ?developer.
-        FILTER(regex(?name,".*${name}.*") && langMatches(lang(?description),"FR")${filters} )
+        FILTER(regex(?name,"${name}") && langMatches(lang(?description),"FR")${filters})
         } LIMIT 30`;
 
     executeSparqlRequest(request)
@@ -90,6 +91,8 @@ function printResults(data) {
         return;
     }
 
+    console.log(data.results.bindings);
+
     data.results.bindings.forEach(r => {
         const ressource = r.game.value;
         const name = r.name.value;
@@ -102,17 +105,18 @@ function printResults(data) {
             description = description.substring(0, 250) + "...";
         }
 
-        getImageFromWikipedia(name).then(function (imageUrl) {
-            resultDiv.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 21rem;">
-            <img src=${imageUrl} class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${name}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">${releaseDate}</h6>
-                    <p class="card-text descriptionCard" style="color: #353b48">${description}</p>
-                    <a href=jeu.html?ressource=${ressource} class="btn btn-primary">Voir détails</a>
-                </div>
-        </div>`;
+        getImageFromWikipedia(name)
+            .then(function (imageUrl) {
+                resultDiv.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 21rem;">
+                <img src=${imageUrl} class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${serie}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">${releaseDate}</h6>
+                        <p class="card-text descriptionCard" style="color: #353b48">${description}</p>
+                        <a href=jeu.html?ressource=${ressource} class="btn btn-primary">Voir détails</a>
+                    </div>
+                </div>`;
         });
     });
 }

@@ -36,7 +36,7 @@ function getImageFromWikipedia(game) {
                     const page = pages[Object.keys(pages)[0]];
                     const image = page.imageinfo;
 
-                    return image[0].url;
+                    return (image !== undefined && image.length > 0) ? image[0].url : "";
                 });
         });
 }
