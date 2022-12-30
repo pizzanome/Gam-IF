@@ -25,8 +25,11 @@ function getData() {
 function printData(data) {
     document.getElementById("jeu-nom").innerHTML = data.results.bindings[0].name.value;
 
-    getImageFromWikipedia(data.results.bindings[0].name.value)
-        .then(imageUrl => document.getElementById("jeu-image").src = imageUrl);
+    getImageGBApi(data.results.bindings[0].name.value)
+        .done(function (response) {
+            let imageUrl = response.results[0].image.original_url;
+            document.getElementById("jeu-image").src = imageUrl;
+        });
 
     const genres = data.results.bindings[0].genre.value.split(";");
     for (let i = 0; i < genres.length; i++) {
