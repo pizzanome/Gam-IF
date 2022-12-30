@@ -18,7 +18,8 @@ function executeSparqlRequest(request) {
 }
 
 function getImageFromWikipedia(game) {
-    const url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${game}&prop=images&format=json`;
+    const gameNorm = encodeURIComponent(game);
+    const url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${gameNorm}&prop=images&format=json`;
 
     return fetch(url)
         .then(response => response.json())
@@ -26,7 +27,9 @@ function getImageFromWikipedia(game) {
             const pages = data.query.pages;
             const page = pages[Object.keys(pages)[0]];
 
-            const imageName = page.images[0].title.replace("File:", "");
+            let imageName = page.images[0].title.replace("File:", "");
+            imageName = encodeURIComponent(imageName);
+            //const imageName = page.title.replace("File:", "");
             const imageUrl = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=File:${imageName}&prop=imageinfo&iiprop=url&format=json`;
 
             return fetch(imageUrl)
@@ -41,18 +44,41 @@ function getImageFromWikipedia(game) {
         });
 }
 
-/*function getImageGBApi(nom) {
+function getImageGBApi(nom) {
     const key = "361817f45f87302548f18c9121d15e9d227db4af";
-    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=json&query=" + nom + "&resources=game";
+    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=jsonp&query=" + nom + "&resources=game";
     let image_url;
-    //return promise
-    return fetch(url, {mode: 'no-cors'})
+    //ajax call of url
+    return $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "jsonp",
+        jsonp: "json_callback"
+    });
+}
+
+function getImageFromWikidata(game) {
+    const gameNorm = encodeURIComponent(game);
+    const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&sites=enwiki&props=claims&titles=${gameNorm}`;
+
+    return fetch(url)
         .then(response => response.json())
         .then(data => {
-            const results = data.results;
-            const result = results[0];
-            const image = result.image;
-            image_url = image.medium_url;
-            return image_url;
+            const entities = data.entities;
+            const entity = entities[Object.keys(entities)[0]];
+            const claims = entity.claims;
+            const claim = claims.P18[0];
+            const image = claim.mainsnak.datavalue.value;
+
+            const imageUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${image}`;
+            return fetch(imageUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const pages = data.query.pages;
+                    const page = pages[Object.keys(pages)[0]];
+                    const image = page.imageinfo;
+
+                    return (image !== undefined && image.length > 0) ? image[0].url : "";
+                });
         });
-}*/
+}

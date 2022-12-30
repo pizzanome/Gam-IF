@@ -105,8 +105,10 @@ function printResults(data) {
             description = description.substring(0, 250) + "...";
         }
 
-        getImageFromWikipedia(name)
-            .then(function (imageUrl) {
+        getImageGBApi(name)
+            .done(function (data) {
+                let imageUrl = data.results[0].image.original_url;
+                console.log(imageUrl);
                 resultDiv.innerHTML += `<div class="card col-4 mx-auto my-3" style="width: 21rem;">
                 <img src=${imageUrl} class="card-img-top" alt="...">
                     <div class="card-body">
