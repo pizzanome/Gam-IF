@@ -17,7 +17,7 @@ function executeSparqlRequest(request) {
     });
 }
 
-/*function getImageFromWikipedia(game) {
+function getImageFromWikipedia(game) {
     const gameNorm = encodeURIComponent(game);
     const url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${gameNorm}&prop=images&format=json`;
 
@@ -42,7 +42,7 @@ function executeSparqlRequest(request) {
                     return (image !== undefined && image.length > 0) ? image[0].url : "";
                 });
         });
-}*/
+}
 
 function getImageGBApi(nom) {
     const key = "361817f45f87302548f18c9121d15e9d227db4af";
