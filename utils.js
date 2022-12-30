@@ -41,6 +41,35 @@ function getImageFromWikipedia(game) {
         });
 }
 
+function printResourceName(ressource, id) {
+    const request = `
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        PREFIX : <http://dbpedia.org/resource/>
+        PREFIX dbpedia2: <http://dbpedia.org/property/>
+        PREFIX dbpedia: <http://dbpedia.org/>
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT *
+        WHERE {
+        <${ressource}> rdfs:label ?name.
+        FILTER(langMatches(lang(?name),"FR"))
+        }`;
+
+    executeSparqlRequest(request)
+        .then(data => {if(data.results.bindings[0] !== undefined){
+            document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${data.results.bindings[0].name.value}</span>`;
+        }else{
+            if(ressource.includes("http://dbpedia.org/resource/")){
+                document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${ressource.split("http://dbpedia.org/resource/")[1]}</span>`;
+            }else {
+                document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${ressource}</span>`;
+            }
+        }});
+}
+
 /*function getImageGBApi(nom) {
     const key = "361817f45f87302548f18c9121d15e9d227db4af";
     const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=json&query=" + nom + "&resources=game";
