@@ -11,7 +11,7 @@ function filterByDate(buttonId, filter) {
     } else {
         // Sinon on l'ajoute
         button.classList.add("active");
-        dateFilter[buttonId] = filter;
+        dateFilter[buttonId] = "(" + filter + ")";
     }
 }
 
@@ -24,7 +24,7 @@ function filterByPlatform(buttonId, platform) {
     } else {
         // Sinon on l'ajoute
         button.classList.add("active");
-        platformFilter[buttonId] = platform;
+        platformFilter[buttonId] = "(" + platform + ")";
     }
 }
 
@@ -37,7 +37,7 @@ function filterByDeveloper(buttonId, developer) {
     } else {
         // Sinon on l'ajoute
         button.classList.add("active");
-        developerFilter[buttonId] = developer;
+        developerFilter[buttonId] = "(" + developer + ")";
     }
 }
 
@@ -49,15 +49,15 @@ function search() {
     let filters = "";
 
     if (Object.keys(dateFilter).length > 0) {
-        filters += " && " + Object.values(dateFilter).join(" || ");
+        filters += " && (" + Object.values(dateFilter).join(" || ") + ")";
     }
 
     if (Object.keys(platformFilter).length > 0) {
-        filters += " && " + Object.values(platformFilter).map(platform => `regex(?platform,";${platform}")`).join(" || ");
+        filters += " && (" + Object.values(platformFilter).map(platform => `regex(?platform,";${platform}")`).join(" || ") + ")";
     }
 
     if (Object.keys(developerFilter).length > 0) {
-        filters += " && " + Object.values(developerFilter).map(developer => `regex(?developer,";${developer}")`).join(" || ");
+        filters += " && (" + Object.values(developerFilter).map(developer => `regex(?developer,";${developer}")`).join(" || ") + ")";
     }
 
     const request = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>' +
@@ -152,7 +152,7 @@ function autoComplete(value) {
                 const name = result.name.value;
 
                 div.innerHTML += `<a href="jeu.html?ressource=${resource}" class="list-group-item list-group-item-action">${name}</a>`;
-                document.getElementById("autocomplete").appendChild(div);
+                //document.getElementById("autocomplete").appendChild(div);
             });
         });
 }
