@@ -105,7 +105,7 @@ function printResults(data) {
             description = description.substring(0, 250) + "...";
         }
 
-        getImageGBApi(name)
+        getImageGBApi(name,"jeu")
             .done(function (data) {
                 let imageUrl = data.results[0].image.original_url;
                 console.log(imageUrl);

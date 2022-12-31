@@ -25,7 +25,7 @@ function getData() {
 function printData(data) {
     document.getElementById("jeu-nom").innerHTML = data.results.bindings[0].name.value;
 
-    getImageGBApi(data.results.bindings[0].name.value)
+    getImageGBApi(data.results.bindings[0].name.value,"jeu")
         .done(function (response) {
             let imageUrl = response.results[0].image.original_url;
             document.getElementById("jeu-image").src = imageUrl;

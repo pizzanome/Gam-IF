@@ -29,8 +29,11 @@ function getData(){
 function printData(data) {
     document.getElementById("developer-nom").innerHTML = data.results.bindings[0].name.value;
 
-    getImageFromWikipedia(data.results.bindings[0].name.value)
-        .then(imageUrl => document.getElementById("developer-image").src = imageUrl);
+    getImageGBApi(data.results.bindings[0].name.value,"developer")
+        .done(function (response) {
+            let imageUrl = response.results[0].image.original_url;
+            document.getElementById("developer-image").src = imageUrl;
+        });
 
     const fondateurs = data.results.bindings[0].fondateurs.value.split(";");
     for (let i = 0; i < fondateurs.length; i++) {

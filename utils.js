@@ -44,9 +44,21 @@ function getImageFromWikipedia(game) {
         });
 }
 
-function getImageGBApi(nom) {
+function getImageGBApi(nom,type) {
     const key = "361817f45f87302548f18c9121d15e9d227db4af";
-    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=jsonp&query=" + nom + "&resources=game";
+    let ressource = "";
+    switch (type) {
+        case "plateforme":
+            ressource = "object";
+            break;
+        case "jeu":
+            ressource = "game";
+            break;
+        case "developpeur":
+            ressource = "company";
+            break;
+    }
+    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=jsonp&query=" + nom + "&resources="+ressource;
     let image_url;
     //ajax call of url
     return $.ajax({
