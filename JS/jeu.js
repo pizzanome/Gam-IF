@@ -11,13 +11,13 @@ function getData() {
         PREFIX : <http://dbpedia.org/resource/>PREFIX dbpedia2: <http://dbpedia.org/property/>
         PREFIX dbpedia: <http://dbpedia.org/>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        SELECT ?name ?dev ?directeur ?publisher ?description (GROUP_CONCAT(DISTINCT ?dates;SEPARATOR=";") AS ?date) (GROUP_CONCAT(DISTINCT ?genres;SEPARATOR=";") AS ?genre) (GROUP_CONCAT(DISTINCT ?plateformes;SEPARATOR=";") AS ?plateforme) ?serie (GROUP_CONCAT(DISTINCT ?jeu;SEPARATOR=";") AS ?jeux)
+        SELECT ?name ?dev ?directeur ?publisher ?description (GROUP_CONCAT(DISTINCT ?dates;SEPARATOR=";") AS ?date) (GROUP_CONCAT(DISTINCT ?genres;SEPARATOR=";") AS ?genre) (GROUP_CONCAT(DISTINCT ?plateformes;SEPARATOR=";") AS ?plateforme) ?nomSerie (GROUP_CONCAT(DISTINCT ?jeu;SEPARATOR=";") AS ?jeux)
         WHERE {
         VALUES ?ressource {<${ressource}>}
         ?ressource rdfs:label ?name; dbp:genre ?genres; dbo:releaseDate ?dates; dbp:developer ?dev; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateformes.
         FILTER(langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR"))
         OPTIONAL{?ressource dbp:director ?directeur}
-        OPTIONAL{?ressource dbo:series ?serie. ?serie dbp:game ?jeu. FILTER(?jeu != ?ressource)}
+        OPTIONAL{?ressource dbo:series ?serie. ?serie dbp:game ?jeu; rdfs:label ?nomSerie. FILTER(?jeu != ?ressource && langMatches(lang(?nomSerie),"FR"))}
         }`;
 
     executeSparqlRequest(request)
@@ -53,13 +53,11 @@ function printData(data) {
 
     document.getElementById("jeu-description").innerHTML = data.results.bindings[0].description.value;
 
-    if(data.results.bindings[0].serie !== undefined) {
-        document.getElementById("jeu-serie").innerHTML = "Jeux de la série " + data.results.bindings[0].serie.value + " : <br><ul>";
+    if(data.results.bindings[0].nomSerie !== undefined) {
+        document.getElementById("jeu-serie").innerHTML = "Jeux de la série " + data.results.bindings[0].nomSerie.value + " : <br><ul>";
         const jeux = data.results.bindings[0].jeux.value.split(";");
         for (let i = 0; i < jeux.length; i++) {
-            document.getElementById("jeu-serie").innerHTML += `<li>`;
             printListGame(jeux[i], "jeu-serie");
-            document.getElementById("jeu-serie").innerHTML += `</li>`;
         }
         document.getElementById("jeu-serie").innerHTML += "</ul>";
     }
@@ -90,6 +88,6 @@ function printListGame(ressource, id){
     executeSparqlRequest(request)
         .then(data => {
             var jeu = data.results.bindings[0].name.value;
-            document.getElementById(id).innerHTML += `<a href="plateforme.html?ressource=${ressource}">${jeu}</a><br>`;
+            document.getElementById(id).innerHTML += `<li><a href="plateforme.html?ressource=${ressource}">${jeu}</a></li>`;
         });
 }
