@@ -94,7 +94,8 @@ function printResults(data) {
     console.log(data.results.bindings);
 
     data.results.bindings.forEach(r => {
-        const ressource = r.game.value;
+        let ressource = r.game.value;
+        ressource = encodeURIComponent(ressource);
         const name = r.name.value;
         const releaseDate = r.date.value;
         let description = r.description.value;
@@ -154,7 +155,8 @@ function autoComplete(value) {
             data.results.bindings.forEach(result => {
                 const div = document.createElement("div");
 
-                const resource = result.game.value;
+                let resource = result.game.value;
+                resource = encodeURIComponent(resource);
                 const name = result.name.value;
 
                 div.innerHTML += `<a href="jeu.html?ressource=${resource}" class="list-group-item list-group-item-action">${name}</a>`;
