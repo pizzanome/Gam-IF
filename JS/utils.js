@@ -121,7 +121,7 @@ function printPlateformeLink(ressource, id) {
         executeSparqlRequest(request)
             .then(data => {
                 var plateforme = data.results.bindings[0].plateforme.value;
-                document.getElementById(id).innerHTML += `<a href="plateforme.html?ressource=${plateforme}" class="badge bg-primary badge-pill">${ressource}</a>`;
+                document.getElementById(id).innerHTML += `<a href="plateforme.html?ressource=${plateforme}" class="badge bg-primary badge-pill">${ressource}</a><br>`;
             });
     }
 }
