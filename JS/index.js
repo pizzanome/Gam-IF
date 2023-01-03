@@ -73,9 +73,9 @@ function search() {
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?game ?name ?description ?serie (GROUP_CONCAT(DISTINCT ?date; SEPARATOR=" ; ") AS ?date)
         WHERE {
-        ?game a dbo:VideoGame; a dbo:Software; foaf:name ?name; dbo:releaseDate ?date; dbp:series ?serie; rdfs:comment ?description; dbp:platforms ?platform; dbo:developer ?developer.
-        FILTER(regex(?name,"${name}") && langMatches(lang(?description),"FR")${filters})
-        } LIMIT 30`;
+        ?game a dbo:VideoGame; a dbo:Software; rdfs:label ?name; dbo:releaseDate ?date; dbp:series ?serie; rdfs:comment ?description; dbp:platforms ?platform; dbo:developer ?developer.
+        FILTER(regex(?name,"${name}") && langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR")${filters})
+        } LIMIT 50`;
 
     executeSparqlRequest(request)
         .then(data => printResults(data));
@@ -144,8 +144,8 @@ function autoComplete(value) {
             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
             SELECT ?game ?name ?description
             WHERE {
-            ?game a dbo:VideoGame; a dbo:Software; rdfs:comment ?description; foaf:name ?name.
-            FILTER(regex(?name,"^${value}") && langMatches(lang(?description),"FR"))
+            ?game a dbo:VideoGame; a dbo:Software; rdfs:comment ?description; rdfs:label ?name.
+            FILTER(regex(?name,"^${value}") && langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR"))
             } LIMIT 5
     `;
 

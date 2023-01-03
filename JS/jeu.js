@@ -13,8 +13,8 @@ function getData() {
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?name ?dev ?directeur ?publisher ?description (GROUP_CONCAT(DISTINCT ?dates;SEPARATOR=";") AS ?date) (GROUP_CONCAT(DISTINCT ?genres;SEPARATOR=";") AS ?genre) (GROUP_CONCAT(DISTINCT ?plateformes;SEPARATOR=";") AS ?plateforme)
         WHERE {
-        <${ressource}> foaf:name ?name; dbp:genre ?genres; dbo:releaseDate ?dates; dbp:developer ?dev; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateformes.
-        FILTER(langMatches(lang(?description),"FR"))
+        <${ressource}> rdfs:label ?name; dbp:genre ?genres; dbo:releaseDate ?dates; dbp:developer ?dev; dbo:publisher ?publisher; dbo:abstract ?description; dbp:platforms ?plateformes.
+        FILTER(langMatches(lang(?description),"FR") && langMatches(lang(?name),"FR"))
         OPTIONAL{<${ressource}> dbp:director ?directeur}
         }`;
 
