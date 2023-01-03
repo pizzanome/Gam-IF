@@ -53,11 +53,11 @@ function search() {
     }
 
     if (Object.keys(platformFilter).length > 0) {
-        filters += " && (" + Object.values(platformFilter).map(platform => `regex(?platform,";${platform}")`).join(" || ") + ")";
+        filters += " && (" + Object.values(platformFilter).map(platform => `regex(?platform,"${platform}")`).join(" || ") + ")";
     }
 
     if (Object.keys(developerFilter).length > 0) {
-        filters += " && (" + Object.values(developerFilter).map(developer => `regex(?developer,";${developer}")`).join(" || ") + ")";
+        filters += " && (" + Object.values(developerFilter).map(developer => `regex(?developer,"${developer}")`).join(" || ") + ")";
     }
 
     const request = `
