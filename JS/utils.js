@@ -1,14 +1,19 @@
 function executeSparqlRequest(request) {
     console.log(request);
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const url = `http://dbpedia.org/sparql?query=${encodeURIComponent(request)}&format=json`;
 
         const xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                resolve(JSON.parse(this.responseText));
+                const data = JSON.parse(this.responseText).results.bindings;
+                if (data.length === 0) {
+                    reject();
+                }
+
+                resolve(data);
             }
         };
 
@@ -29,7 +34,6 @@ function getImageFromWikipedia(game) {
 
             let imageName = page.images[0].title.replace("File:", "");
             imageName = encodeURIComponent(imageName);
-            //const imageName = page.title.replace("File:", "");
             const imageUrl = `https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=File:${imageName}&prop=imageinfo&iiprop=url&format=json`;
 
             return fetch(imageUrl)
@@ -44,7 +48,7 @@ function getImageFromWikipedia(game) {
         });
 }
 
-function getImageGBApi(nom,type) {
+function getImageGBApi(nom, type) {
     const key = "361817f45f87302548f18c9121d15e9d227db4af";
     let ressource = "";
     switch (type) {
@@ -58,9 +62,9 @@ function getImageGBApi(nom,type) {
             ressource = "company";
             break;
     }
-    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=jsonp&query=" + nom + "&resources="+ressource;
-    let image_url;
-    //ajax call of url
+
+    const url = "https://www.giantbomb.com/api/search/?api_key=" + key + "&format=jsonp&query=" + nom + "&resources=" + ressource;
+
     return $.ajax({
         url: url,
         type: "GET",
@@ -87,21 +91,22 @@ function printResourceName(ressource, id) {
         }`;
 
     executeSparqlRequest(request)
-        .then(data => {if(data.results.bindings[0] !== undefined){
-            document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${data.results.bindings[0].name.value}</span>`;
-        }else{
-            if(ressource.includes("http://dbpedia.org/resource/")){
+        .then(data => {
+            document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${data[0].name.value}</span>`;
+        })
+        .catch(() => {
+            if (ressource.includes("http://dbpedia.org/resource/")) {
                 document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${ressource.split("http://dbpedia.org/resource/")[1]}</span>`;
-            }else {
+            } else {
                 document.getElementById(id).innerHTML += `<span class="badge bg-primary badge-pill">${ressource}</span>`;
             }
-        }});
+        });
 }
 
 function printPlateformeLink(ressource, id) {
-    if(ressource.includes("http://dbpedia.org/resource/")){
+    if (ressource.includes("http://dbpedia.org/resource/")) {
         document.getElementById(id).innerHTML += `<a href="plateforme.html?ressource=${ressource}" class="badge bg-primary badge-pill">${ressource.split("http://dbpedia.org/resource/")[1]}</a>`;
-    }else {
+    } else {
         const request = `
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -120,16 +125,16 @@ function printPlateformeLink(ressource, id) {
 
         executeSparqlRequest(request)
             .then(data => {
-                var plateforme = data.results.bindings[0].plateforme.value;
+                const plateforme = data[0].plateforme.value;
                 document.getElementById(id).innerHTML += `<a href="plateforme.html?ressource=${plateforme}" class="badge bg-primary badge-pill">${ressource}</a><br>`;
             });
     }
 }
 
 function printDeveloperLink(ressource, id) {
-    if(ressource.includes("http://dbpedia.org/resource/")){
+    if (ressource.includes("http://dbpedia.org/resource/")) {
         document.getElementById(id).innerHTML += `<a href="developer.html?ressource=${ressource}" class="badge bg-primary badge-pill">${ressource.split("http://dbpedia.org/resource/")[1]}</a>`;
-    }else {
+    } else {
         const request = `
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -148,7 +153,7 @@ function printDeveloperLink(ressource, id) {
 
         executeSparqlRequest(request)
             .then(data => {
-                var developer = data.results.bindings[0].developer.value;
+                const developer = data[0].developer.value;
                 document.getElementById(id).innerHTML += `<a href="developer.html?ressource=${developer}" class="badge bg-primary badge-pill">${ressource}</a>`;
             });
     }
