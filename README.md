@@ -5,7 +5,7 @@
 GameIF est un moteur de recherche spécialisé dans le domaine des jeux vidéos.
 Il utilise des données extraites de <a href="https://www.dbpedia.org">DBpedia</a>.
 
-Il a été développé dans le cadre de la matière **Web Sémantique**.
+Il a été développé dans le cadre de **Web Sémantique**.
 
 ## Auteurs
 
@@ -18,6 +18,10 @@ Groupe H4121 :
 - Alexandre SENOUCI
 - Max SZOSTKIEWICZ
 - Kévin KANAAN
+
+## Démarrage
+
+Le moteur de recherche est disponible <a href="https://pizzanome.github.io/Gam-IF/">ici</a>.
 
 ## Fonctionnalités
 
@@ -40,6 +44,8 @@ Voici une liste des fonctionnalités actuellement implémentées :
 
 ## Librairies et technologies utilisées
 
+- HTML/CSS
+- JavaScript
 - Requêtes Sparql
 - Bootstrap
 - AJAX
@@ -48,11 +54,3 @@ Voici une liste des fonctionnalités actuellement implémentées :
 
 Il est possible que l'image d'un jeu ne s'affiche pas ou que la fiche d'un jeu ne contienne pas toutes les propriétés
 attendues. Cela est dû à un problème de DBpedia sur le format des données.
-
-## Installation
-
-Pour installer GameIF, il suffit de cloner le dépôt git et de lancer `jeu.html` dans un navigateur web :
-
-Clonage du dépôt git :
-
-    git clone https://github.com/pizzanome/Gam-IF.git

@@ -78,28 +78,23 @@ function search() {
         } LIMIT 50`;
 
     executeSparqlRequest(request)
-        .then(data => printResults(data));
+        .then(data => printResults(data))
+        .catch(() => {
+            document.getElementById("contenaireResultat").innerHTML = "<h2>Aucun résultat</h2>";
+        });
 }
 
 function printResults(data) {
     const resultDiv = document.getElementById("contenaireResultat");
     resultDiv.innerHTML = "";
 
-    if (data.results.length === 0) {
-        resultDiv.innerHTML = "Aucun résultat";
-
-        return;
-    }
-
-    console.log(data.results.bindings);
-
-    data.results.bindings.forEach(r => {
-        let ressource = r.game.value;
+    data.forEach(result => {
+        let ressource = result.game.value;
         ressource = encodeURIComponent(ressource);
-        const name = r.name.value;
-        const releaseDate = r.date.value;
-        let description = r.description.value;
-        const serie = r.serie.value;
+        const name = result.name.value;
+        const releaseDate = result.date.value;
+        let description = result.description.value;
+        const serie = result.serie.value;
 
         // Si la description est trop longue, on la coupe
         if (description.length > 250) {
@@ -152,7 +147,7 @@ function autoComplete(value) {
 
     executeSparqlRequest(request)
         .then(data => {
-            data.results.bindings.forEach(result => {
+            data.forEach(result => {
                 const div = document.createElement("div");
 
                 let resource = result.game.value;

@@ -19,40 +19,43 @@ function getData() {
         }`;
 
     executeSparqlRequest(request)
-        .then(data => printData(data));
+        .then(data => printData(data))
+        .catch(() => {
+            document.getElementById("game").innerHTML = "<h1>Erreur : Aucune donnée trouvée pour ce jeu</h1>";
+        });
 }
 
 function printData(data) {
-    document.getElementById("jeu-nom").innerHTML = data.results.bindings[0].name.value;
+    document.getElementById("jeu-nom").innerHTML = data[0].name.value;
 
-    getImageGBApi(data.results.bindings[0].name.value,"jeu")
+    getImageGBApi(data[0].name.value,"jeu")
         .done(function (response) {
             let imageUrl = response.results[0].image.original_url;
             document.getElementById("jeu-image").src = imageUrl;
         });
 
-    const genres = data.results.bindings[0].genre.value.split(";");
-    for (let i = 0; i < genres.length; i++) {
-        printResourceName(genres[i], "jeu-genre");
+    const genres = data[0].genre.value.split(";");
+    for (const genre of genres) {
+        printResourceName(genre, "jeu-genre");
     }
 
-    const dates = data.results.bindings[0].date.value.split(";");
-    for (let i = 0; i < dates.length; i++) {
-        document.getElementById("jeu-date").innerHTML += `<span class="badge bg-primary badge-pill">${dates[i]}</span>`;
+    const dates = data[0].date.value.split(";");
+    for (const date of dates) {
+        document.getElementById("jeu-date").innerHTML += `<span class="badge bg-primary badge-pill">${date}</span>`;
     }
 
-    printDeveloperLink(data.results.bindings[0].dev.value, "jeu-developpeur");
+    printDeveloperLink(data[0].dev.value, "jeu-developpeur");
 
-    if (data.results.bindings[0].directeur !== undefined) {
-        printResourceName(data.results.bindings[0].directeur.value, "jeu-directeur");
+    if (data[0].directeur !== undefined) {
+        printResourceName(data[0].directeur.value, "jeu-directeur");
     }
 
-    printResourceName(data.results.bindings[0].publisher.value, "jeu-editeur");
+    printResourceName(data[0].publisher.value, "jeu-editeur");
 
-    document.getElementById("jeu-description").innerHTML = data.results.bindings[0].description.value;
+    document.getElementById("jeu-description").innerHTML = data[0].description.value;
 
-    const plateformes = data.results.bindings[0].plateforme.value.split(";");
-    for (let i = 0; i < plateformes.length; i++) {
-        printPlateformeLink(plateformes[i], "jeu-plateforme");
+    const plateformes = data[0].plateforme.value.split(";");
+    for (const plateforme of plateformes) {
+        printPlateformeLink(plateforme, "jeu-plateforme");
     }
 }
