@@ -2,7 +2,7 @@ function executeSparqlRequest(request) {
     console.log(request);
 
     return new Promise((resolve) => {
-        const url = `http://dbpedia.org/sparql?query=${encodeURIComponent(request)}&format=json`;
+        const url = `//dbpedia.org/sparql?query=${encodeURIComponent(request)}&format=json`;
 
         const xmlhttp = new XMLHttpRequest();
 
