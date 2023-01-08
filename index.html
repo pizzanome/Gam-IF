@@ -2,14 +2,140 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gam'IF</title>
+    <title>Gam'IF - Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="JS/utils.js"></script>
+    <script src="JS/index.js"></script>
 </head>
+
+<!-- Contenu du site -->
 <body>
-<h1>Gam'IF</h1>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+<!-- page d'accueil -->
+<div class="container-fluid">
+    <div class="container h-30 titre">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                <h1 class="text-left">Apprends en plus sur tes jeux favoris !</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="gameif">
+        <h2 class="text-center" id="searchBarPos">GameIF</h2>
+    </div>
+    <div class="container h-50">
+        <div class="d-flex justify-content-center h-50">
+            <div class="searchbar row">
+                <input autocomplete="off" id="recherche" class="search_input col-auto" type="search" name=""
+                       placeholder="Cherche un jeu, un studio, une licence, ..." oninput="autoComplete(this.value)"
+                       onkeydown="key_down(this.e)">
+                <button id="bouton-recherche" class="btn btn-default search_icon" type="submit"
+                        onclick="search()">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <div class="list-group listAuto" id="autocomplete"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Affichage des boutons filtres -->
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-2009" type="checkbox" hidden>
+                <label for="bouton-filtre-2009" class="btn btn-default button-filtre"
+                       onclick="filterByDate('bouton-filtre-2009', '?date < \'2009-01-01\'^^xsd:date')"><span>< 2009</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12 ">
+                <input id="bouton-filtre-2009-2015" type="checkbox" hidden>
+                <label for="bouton-filtre-2009-2015" class="btn btn-default button-filtre"
+                       onclick="filterByDate('bouton-filtre-2009-2015', '?date > \'2009-01-01\'^^xsd:date && ?date < \'2015-01-01\'^^xsd:date')"><span>2009 - 2015</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12 ">
+                <input id="bouton-filtre-2015-2021" type="checkbox" hidden>
+                <label for="bouton-filtre-2015-2021" class="btn btn-default button-filtre"
+                       onclick="filterByDate('bouton-filtre-2015-2021', '?date > \'2015-01-01\'^^xsd:date && ?date < \'2021-01-01\'^^xsd:date')"><span>2015 - 2021</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-2022" type="checkbox" hidden>
+                <label for="bouton-filtre-2022" class="btn btn-default button-filtre"
+                       onclick="filterByDate('bouton-filtre-2022', '?date > \'2022-01-01\'^^xsd:date')"><span>2022</span></label>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-Playstation" type="checkbox" hidden>
+                <label for="bouton-filtre-Playstation" class="btn btn-default button-filtre"
+                       onclick="filterByPlatform('bouton-filtre-Playstation', 'PlayStation')"><span>Playstation</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-macOS" type="checkbox" hidden>
+                <label for="bouton-filtre-macOS" class="btn btn-default button-filtre"
+                       onclick="filterByPlatform('bouton-filtre-macOS', 'MacOS')"><span>MacOS</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-Windows" type="checkbox" hidden>
+                <label for="bouton-filtre-Windows" class="btn btn-default button-filtre"
+                       onclick="filterByPlatform('bouton-filtre-Windows', 'Microsoft_Windows')"><span>Windows</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-XBox" type="checkbox" hidden>
+                <label for="bouton-filtre-XBox" class="btn btn-default button-filtre"
+                       onclick="filterByPlatform('bouton-filtre-XBox', 'Xbox')"><span>XBox</span></label>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-Ubisoft" type="checkbox" hidden>
+                <label for="bouton-filtre-Ubisoft" class="btn btn-default button-filtre"
+                       onclick="filterByDeveloper('bouton-filtre-Ubisoft', 'Ubisoft')"><span>Ubisoft</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-Arkane-Studio" type="checkbox" hidden>
+                <label for="bouton-filtre-Arkane-Studio" class="btn btn-default button-filtre"
+                       onclick="filterByDeveloper('bouton-filtre-Arkane-Studio', 'Arkane')"><span>Arkane Studios</span></label>
+            </div>
+            <div class="col-md-auto col-xs-12">
+                <input id="bouton-filtre-Nintendo" type="checkbox" hidden>
+                <label for="bouton-filtre-Nintendo" class="btn btn-default button-filtre"
+                       onclick="filterByDeveloper('bouton-filtre-Nintendo', 'Nintendo')"><span>Nintendo</span></label>
+            </div>
+        </div>
+
+        <div class="container containerCardResult">
+            <div id="contenaireResultat" class="row">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /*document.addEventListener('click', function (e) {
+        if (e.target.closest('#autocomplete')) return;
+        document.getElementById('autocomplete').style.display = 'none';
+    });*/
+
+    function key_down(e) {
+        if (e === undefined) {
+            return;
+        }
+
+        if (e.keyCode === 13) {
+            search();
+        }
+    }
+</script>
 </body>
 </html>
